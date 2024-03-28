@@ -1,9 +1,12 @@
+import { memo } from "react"
 import classes from "./[FTName].module.css"
 
-export function <FTName | pascalcase>(){
+function <FTName | pascalcase>Component(){
     return(
         <div className={classes.<FTName | snakecase>}>
 
         </div>
     )
 }
+
+export const <FTName | pascalcase> = memo(<FTName | pascalcase>Component)

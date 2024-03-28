@@ -5,7 +5,16 @@ export const data = {
             {
                 id: 1,
                 title: "Get users",
-                method: "GET"
+                method: "GET",
+                base_url: 'https://jsonplaceholder.typicode.com/users',
+                queries:[
+                    {
+                        name: 'id',
+                        inputType: 'string',
+                        description: "Select one user by id",
+                        type: "changeUrl",
+                    }
+                ]
             },
             {
                 id: 2,
@@ -28,17 +37,17 @@ export const data = {
         title: "fortnite",
         requiests: [
             {
-                id: 1,
+                id: 5,
                 title: "games",
                 method: "GET"
             },
             {
-                id: 2,
+                id: 6,
                 title: "movies",
                 method: "GET"
             },
             {
-                id: 3,
+                id: 7,
                 title: "toys",
                 method: "GET"
             }

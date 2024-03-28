@@ -1,0 +1,15 @@
+.requiest_query {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: .5rem 0 1rem;
+}
+
+.name_container p:last-child{
+    color: gray;
+}
+.name_container p:first-child, .description_container p:first-child{
+    margin-bottom: .4rem;
+    font-size: 16px;
+    font-weight: 500;
+}

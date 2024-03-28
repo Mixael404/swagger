@@ -1,0 +1,13 @@
+.code_block {
+    padding: 1rem 1.5rem;
+    background-color: black;
+    width: fit-content;
+}
+code{
+    color: rgb(0, 209, 0);
+}
+.title{
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
