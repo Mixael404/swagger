@@ -1,16 +1,24 @@
 import classes from "./execute-clear-group.module.css"
 
-export function ExecuteClearGroup(){
+export function ExecuteClearGroup({onExecute, onClear}){
     return(
         <div
               className="btn-group"
               role="group"
               aria-label="Basic mixed styles example"
             >
-              <button type="button" className="btn btn-info">
+              <button
+              onClick={onExecute}
+              type="button"
+              className="btn btn-info"
+              >
                 Execute
               </button>
-              <button type="button" className="btn btn-light">
+              <button
+              onClick={onClear}
+              type="button"
+              className="btn btn-light"
+              >
                 Clear
               </button>
             </div>

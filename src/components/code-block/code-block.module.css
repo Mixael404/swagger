@@ -2,8 +2,10 @@
     padding: 1rem 1.5rem;
     background-color: black;
     width: fit-content;
+    margin-bottom: 1rem;
 }
 code{
+    display: block;
     color: rgb(0, 209, 0);
 }
 .title{
