@@ -10,23 +10,22 @@ export const data = {
                 params:[
                     {
                         name: 'id',
-                        inputType: 'string',
+                        inputType: 'query',
                         description: "Select one post by id",
                         type: "changeQuery",
                     },
                     {
                         name: 'content-type',
-                        inputType: "string",
+                        inputType: "header",
                         description: "Select type of content",
                         type: "changeHeader",
                         defaultHeader: 'application/json'
                     },
                     {
                         name: 'content-type2',
-                        inputType: "string",
+                        inputType: "header",
                         description: "Select type of content",
                         type: "changeHeader",
-                        defaultHeader: 'application/json'
                     },
                 ]
             },

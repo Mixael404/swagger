@@ -30,7 +30,7 @@ export function RequiestQuery(props){
             <div className={classes.description_container}>
                 <p> {props.description} </p>
                 <input
-                value={value}
+                value={props.defaultHeader ?? value}
                 onKeyDown={onKeyDown}
                 onChange={handleChange}
                 disabled={!props.access}

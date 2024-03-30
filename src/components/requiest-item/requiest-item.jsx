@@ -8,6 +8,8 @@ import { ParamsControlBtn } from "../params-control-btn/params-control-btn";
 import { getColor } from "../../utils/get-color/get-color";
 import { CodeBlock } from "../code-block/code-block";
 import { arrayToObject } from "../../utils/array-to-object/array-to-object";
+import { isNonEmptyFields } from "../../utils/non-emtpy-fields/non-empty-fields";
+import { filterEmptyFields } from "../../utils/filter-empty-fields/filter-empty-fields";
 
 function RequiestItem({ req }) {
   const [access, setAccess] = useState(false);
@@ -17,19 +19,42 @@ function RequiestItem({ req }) {
   const [response, setResponse] = useState(null)
   const [clear, setClear] = useState(false)
 
+  const isheadersNotEmpty = useMemo(() => isNonEmptyFields(headers), [headers]);
+
+  function setDefaultHeaders(){
+    const headers = {}
+    req.params.forEach((param) => {
+      if(param.defaultHeader){
+        headers[param.name] = param.defaultHeader;
+      }
+    })
+    setHeaders(headers)
+  }
+
   const callbacks = {
     changeAccess: useCallback(() => {
       setAccess((prev) => !prev)
       setClear(prev => !prev)
       setResponse('')
+      setDefaultHeaders();
     }, []),
+
     onExecute: useCallback(async () => {
-      const response = await fetch(`${url}`)
+      const filteredHeaders = filterEmptyFields(headers)
+      const response = await fetch(`${url}`, {
+        method: req.method,
+        headers: {
+          ...filteredHeaders
+        }
+      })
       const data = await response.text()
       setResponse(data)
-    }, [url]),
+    }, [url, headers]),
+
     onClear: useCallback(() => {
-      setClear(prev => !prev)
+      setClear(prev => !prev);
+      setDefaultHeaders();
+
     },[])
   };
 
@@ -45,6 +70,7 @@ function RequiestItem({ req }) {
         return {...prev, [key]: value}
       })
     }, []),
+
     changeHeader: useCallback((key, value) => {
       setHeaders((prev) => {
         return {...prev, [key]: value}
@@ -68,7 +94,17 @@ function RequiestItem({ req }) {
     const params = queryString.join("").slice(0, -1);
     setUrl(`${req.base_url}${params}`)
   }, [queryParams])
+
   
+  useEffect(() => {
+    req.params.forEach(param => {
+      if(param.defaultHeader){
+        setHeaders((prev) => {
+          return {...prev, [param.name]: param.defaultHeader}
+        })
+      }
+    });
+  }, [])
 
   return (
     <div className="requiest_item">
@@ -108,7 +144,7 @@ function RequiestItem({ req }) {
             <p>Responses</p>
           </div>
           <CodeBlock title={"url"} code={url} />
-          <CodeBlock title={"headers"} code={headers} />
+          {isheadersNotEmpty && <CodeBlock title={"headers"} code={headers} />}
           {response && access && <CodeBlock title={"Response"} code={response} />}
         </div>
       </CollapseCard>
