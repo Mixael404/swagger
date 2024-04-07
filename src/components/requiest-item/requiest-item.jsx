@@ -11,17 +11,23 @@ import { arrayToObject } from "../../utils/array-to-object/array-to-object";
 import { isNonEmptyFields } from "../../utils/non-emtpy-fields/non-empty-fields";
 import { filterEmptyFields } from "../../utils/filter-empty-fields/filter-empty-fields";
 
+import { apiService } from "../../api-service/api.service";
+
 function RequiestItem({ req }) {
   const [access, setAccess] = useState(false);
   const [url, setUrl] = useState(req.base_url);
+
   const [queryParams, setQueryParams] = useState(arrayToObject(req.params.filter(param => param.type === "changeQuery").map(param => param.name)))
   const [headers, setHeaders] = useState(arrayToObject(req.params.filter(param => param.type === "changeHeader").map(param => param.name)))
+  const [body, setBody] = useState(arrayToObject(req.params.filter(param => param.type === "changeBody").map(param => param.name)))
+
   const [response, setResponse] = useState(null)
   const [clear, setClear] = useState(false)
 
   const isheadersNotEmpty = useMemo(() => isNonEmptyFields(headers), [headers]);
-
-  function setDefaultHeaders(){
+  console.log("Item rerender");
+  // TODO: Доработать для всех параметров
+  const setDefaultHeaders = useCallback(function(){
     const headers = {}
     req.params.forEach((param) => {
       if(param.defaultHeader){
@@ -29,7 +35,17 @@ function RequiestItem({ req }) {
       }
     })
     setHeaders(headers)
-  }
+  }, [])
+  // function setDefaultHeaders(){
+  //   const headers = {}
+  //   req.params.forEach((param) => {
+  //     if(param.defaultHeader){
+  //       headers[param.name] = param.defaultHeader;
+  //     }
+  //   })
+  //   setHeaders(headers)
+
+  // }
 
   const callbacks = {
     changeAccess: useCallback(() => {
@@ -41,27 +57,23 @@ function RequiestItem({ req }) {
 
     onExecute: useCallback(async () => {
       const filteredHeaders = filterEmptyFields(headers)
-      const response = await fetch(`${url}`, {
-        method: req.method,
-        headers: {
-          ...filteredHeaders
-        }
-      })
-      const data = await response.text()
+
+      const data = await apiService.requiest(url, req.method, filteredHeaders, body)
       setResponse(data)
-    }, [url, headers]),
+    }, [url, headers, body]),
 
     onClear: useCallback(() => {
       setClear(prev => !prev);
       setDefaultHeaders();
-
+      setUrl(req.base_url)
     },[])
   };
 
   const color = getColor(req.method);
+  
 
   const reqControls = {
-    changeUrl: useCallback((value) => {
+    changeUrl: useCallback((key, value) => {
       setUrl(req.base_url + `/${value}`);
     }, []),
 
@@ -75,12 +87,34 @@ function RequiestItem({ req }) {
       setHeaders((prev) => {
         return {...prev, [key]: value}
       })
-    }, [])
+    }, []),
+
+    changeBody: useCallback((key, value) => {
+      setBody((prev) => {
+        return {...prev, [key]: value}
+      })
+    }, []),
+
+    // changeParams: useCallback((type, key, value) => {
+    //   if(type === 'changeQuery'){
+    //     setQueryParams((prev) => {
+    //       return {...prev, [key]: value}
+    //     })
+    //   } else if (type === 'changeHeader'){
+    //     setHeaders((prev) => {
+    //       return {...prev, [key]: value}
+    //     })
+    //   } else if(type === 'changeBody'){
+    //     setBody((prev) => {
+    //       return {...prev, [key]: value}
+    //     })
+    //   }
+    // }, []),
   };
   
-  useEffect(() => {
-    setUrl(req.base_url)
-  }, [clear])
+  // useEffect(() => {
+  //   setUrl(req.base_url)
+  // }, [clear])
   
   
   useEffect(() => {
@@ -97,13 +131,7 @@ function RequiestItem({ req }) {
 
   
   useEffect(() => {
-    req.params.forEach(param => {
-      if(param.defaultHeader){
-        setHeaders((prev) => {
-          return {...prev, [param.name]: param.defaultHeader}
-        })
-      }
-    });
+    setDefaultHeaders()
   }, [])
 
   return (
@@ -124,7 +152,7 @@ function RequiestItem({ req }) {
             />
           </div>
 
-          {req.params && req.params.length && (
+          {(req.params && req.params.length) ? (
             <div className="requiest_params_body">
               <ParamsTitle />
               {req.params.map((param) => (
@@ -134,16 +162,17 @@ function RequiestItem({ req }) {
                   {...param}
                   access={access}
                   clear={clear}
+                  reqId = {req.id}
                 />
-              ))}
+              ))} 
             </div>
-          )}
+          ) : null}
 
           {access && <ExecuteClearGroup onExecute={callbacks.onExecute} onClear={callbacks.onClear} />}
           <div className="requiest_white_card">
             <p>Responses</p>
           </div>
-          <CodeBlock title={"url"} code={url} />
+          <CodeBlock title={"url"} code={typeof url !== 'undefined' ? url : "In progress"} />
           {isheadersNotEmpty && <CodeBlock title={"headers"} code={headers} />}
           {response && access && <CodeBlock title={"Response"} code={response} />}
         </div>

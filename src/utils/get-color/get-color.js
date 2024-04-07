@@ -11,6 +11,9 @@ export function getColor(method){
         case "DELETE":
           color = "red";
           break;
+        case "PUT":
+          color = "orange";
+          break;
         default:
           color = "transparent";
           break;

@@ -43,6 +43,12 @@ p{
     color: black;
     border-bottom: 1px solid blue;
 }
+.btn-primary.orange:focus{
+    background-color: rgba(220, 143, 0, 0.3);
+    border: none;
+    color: black;
+    border-bottom: 1px solid rgba(220, 143, 0, 0.3);
+}
 
 
 .btn.btn-primary:hover{
@@ -83,4 +89,9 @@ p{
     background-color: rgba(0, 0, 255, 0.3);
     border: none;
     border-bottom: 1px solid blue;
+}
+.orange{
+    background-color: rgba(220, 143, 0, 0.3);
+    border: none;
+    border-bottom: 1px solid rgba(220, 143, 0, 0.3);
 }
