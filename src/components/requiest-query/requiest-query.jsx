@@ -9,17 +9,16 @@ export function RequiestQuery(props){
 
     const handleChange = (e) => {
         const input = e.target.value
-        // setValue(input)
         action(props.name , input)
     }
 
     useEffect(() => {
         // setValue("")
-        inputRef.current.value = ''
+        inputRef.current.value = props.defaultValue ?? ''
     }, [props.clear])
 
     useEffect(() => {
-        inputRef.current.value = props.defaultHeader ?? ''
+        inputRef.current.value = props.defaultValue ?? ''
     }, [props.access])
 
     return(
@@ -33,9 +32,8 @@ export function RequiestQuery(props){
                 <input
                 id={`${props.reqId}-${props.name}`}
                 ref={inputRef}
-                value={props.defaultHeader ?? undefined}
                 onChange={handleChange}
-                disabled={!props.access}
+                disabled={!props.access || !props.editable}
                 type="text" />
             </div>
         </div>

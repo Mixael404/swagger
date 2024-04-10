@@ -13,19 +13,30 @@ export const data = {
                         inputType: 'query',
                         description: "Select one post by id",
                         type: "changeQuery",
+                        defaultValue: 1,
+                        editable: true
+                    },
+                    {
+                        name: 'something',
+                        inputType: 'query',
+                        description: "Something to test",
+                        type: "changeQuery",
+                        editable: true
                     },
                     {
                         name: 'content-type',
                         inputType: "header",
                         description: "Select type of content",
                         type: "changeHeader",
-                        defaultHeader: 'application/json'
+                        defaultValue: 'application/json',
+                        editable: false
                     },
                     {
                         name: 'content-type2',
                         inputType: "header",
                         description: "Select type of content",
                         type: "changeHeader",
+                        editable: true
                     },
                 ]
             },
@@ -39,26 +50,31 @@ export const data = {
                         name: 'title',
                         inputType: "body",
                         description: "Title of added post",
-                        type: "changeBody"
+                        type: "changeBody",
+                        editable: true
                     },
                     {
                         name: 'body',
                         inputType: "body",
                         description: "Body of added post",
-                        type: "changeBody"
+                        type: "changeBody",
+                        editable: true
                     },
                     {
                         name: 'userId',
                         inputType: "body",
                         description: "Id of user that added post",
-                        type: "changeBody"
+                        type: "changeBody",
+                        defaultValue: 3,
+                        editable: true
                     },
                     {
                         name: 'content-type',
                         inputType: "header",
                         description: "Select type of content",
                         type: "changeHeader",
-                        defaultHeader: 'application/json'
+                        defaultValue: 'application/json',
+                        editable: true
                     },
                 ]
             },
@@ -72,32 +88,37 @@ export const data = {
                         name: 'id',
                         inputType: "body",
                         description: "Id of updated post",
-                        type: "changeUrl"
+                        type: "changeUrl",
+                        editable: true
                     },
                     {
                         name: 'title',
                         inputType: "body",
                         description: "Title of updated post",
-                        type: "changeBody"
+                        type: "changeBody",
+                        editable: true
                     },
                     {
                         name: 'body',
                         inputType: "body",
                         description: "Body of updated post",
-                        type: "changeBody"
+                        type: "changeBody",
+                        editable: true
                     },
                     {
                         name: 'userId',
                         inputType: "body",
                         description: "Id of user that updated post",
-                        type: "changeBody"
+                        type: "changeBody",
+                        editable: true
                     },
                     {
                         name: 'content-type',
                         inputType: "header",
                         description: "Select type of content",
                         type: "changeHeader",
-                        defaultHeader: 'application/json'
+                        defaultHeader: 'application/json',
+                        editable: false
                     },
                 ]
             },
@@ -142,6 +163,7 @@ export const data = {
                         inputType: 'url',
                         description: "Select one cheese by name",
                         type: "changeUrl",
+                        editable: true
                     },
                 ]
             },

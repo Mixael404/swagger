@@ -19,7 +19,7 @@ export function ExecuteClearGroup({onExecute, onClear}){
               type="button"
               className="btn btn-light"
               >
-                Clear
+                Reset
               </button>
             </div>
     )
