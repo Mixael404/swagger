@@ -14,14 +14,14 @@ export const data = {
                         description: "Select one post by id",
                         type: "changeQuery",
                         defaultValue: 1,
-                        editable: true
+                        disabled: false
                     },
                     {
                         name: 'something',
                         inputType: 'query',
                         description: "Something to test",
                         type: "changeQuery",
-                        editable: true
+                        disabled: false
                     },
                     {
                         name: 'content-type',
@@ -29,14 +29,14 @@ export const data = {
                         description: "Select type of content",
                         type: "changeHeader",
                         defaultValue: 'application/json',
-                        editable: false
+                        disabled: true
                     },
                     {
                         name: 'content-type2',
                         inputType: "header",
                         description: "Select type of content",
                         type: "changeHeader",
-                        editable: true
+                        disabled: false
                     },
                 ]
             },
@@ -51,14 +51,14 @@ export const data = {
                         inputType: "body",
                         description: "Title of added post",
                         type: "changeBody",
-                        editable: true
+                        disabled: false
                     },
                     {
                         name: 'body',
                         inputType: "body",
                         description: "Body of added post",
                         type: "changeBody",
-                        editable: true
+                        disabled: false
                     },
                     {
                         name: 'userId',
@@ -66,7 +66,7 @@ export const data = {
                         description: "Id of user that added post",
                         type: "changeBody",
                         defaultValue: 3,
-                        editable: true
+                        disabled: false
                     },
                     {
                         name: 'content-type',
@@ -74,7 +74,7 @@ export const data = {
                         description: "Select type of content",
                         type: "changeHeader",
                         defaultValue: 'application/json',
-                        editable: true
+                        disabled: false
                     },
                 ]
             },
@@ -89,36 +89,36 @@ export const data = {
                         inputType: "body",
                         description: "Id of updated post",
                         type: "changeUrl",
-                        editable: true
+                        disabled: false
                     },
                     {
                         name: 'title',
                         inputType: "body",
                         description: "Title of updated post",
                         type: "changeBody",
-                        editable: true
+                        disabled: false
                     },
                     {
                         name: 'body',
                         inputType: "body",
                         description: "Body of updated post",
                         type: "changeBody",
-                        editable: true
+                        disabled: false
                     },
                     {
                         name: 'userId',
                         inputType: "body",
                         description: "Id of user that updated post",
                         type: "changeBody",
-                        editable: true
+                        disabled: false
                     },
                     {
                         name: 'content-type',
                         inputType: "header",
                         description: "Select type of content",
                         type: "changeHeader",
-                        defaultHeader: 'application/json',
-                        editable: false
+                        defaultValue: 'application/json',
+                        disabled: true
                     },
                 ]
             },
@@ -163,7 +163,7 @@ export const data = {
                         inputType: 'url',
                         description: "Select one cheese by name",
                         type: "changeUrl",
-                        editable: true
+                        disabled: false
                     },
                 ]
             },
@@ -174,6 +174,82 @@ export const data = {
                 method: "GET",
                 params:[
 
+                ]
+            },
+        ]
+    },
+    fortniteapi: {
+        title: 'fortniteapi',
+        requiests: [
+            {
+                id: 12,
+                base_url: 'https://fortniteapi.io/v2/shop',
+                title: "Get daily products",
+                method: 'GET',
+                params: [
+                    {
+                        name: 'lang',
+                        inputType: 'query',
+                        description: "Select language of returned data",
+                        type: "changeQuery",
+                        defaultValue: "en",
+                        disabled: false,
+                        options: [
+                            { value: 'en', label: 'English' },
+                            { value: 'ru', label: 'Русский' },
+                            { value: 'de', label: 'Deutch' }
+                          ]
+                    },
+                    {
+                        name: 'Authorization',
+                        inputType: 'header',
+                        description: "Auth key to API",
+                        type: 'changeHeader',
+                        defaultValue: '582965de-97ea6794-3b2e92e1-64e39fef',
+                        disabled: true
+                    }
+                ]
+            },
+            {
+                id: 13,
+                base_url: 'https://fortniteapi.io/v2/items/get',
+                title: "Get item details",
+                method: 'GET',
+                params: [
+                    {
+                        name: "id",
+                        inputType: 'query',
+                        description: 'Select id of necessary item',
+                        type: 'changeQuery',
+                        disabled: false,
+                        options: [
+                            {value: 'JBSID_BR_PavilionSm_01', label: 'LEGO® Kit'},
+                            {value: 'CID_267_Athena_Commando_M_RobotRed', label: 'A.I.M'},
+                            {value: 'JBSID_BR_StoreMed_01', label: "Swimmin' Shop"},
+                            {value: 'JBSID_BR_HouseLg_01', label: "Beach House"},
+                        ]
+                    },
+                    {
+                        name: 'lang',
+                        inputType: 'query',
+                        description: "Select language of returned data",
+                        type: "changeQuery",
+                        defaultValue: "en",
+                        disabled: false,
+                        options: [
+                            { value: 'en', label: 'English' },
+                            { value: 'ru', label: 'Русский' },
+                            { value: 'de', label: 'Deutch' }
+                          ]
+                    },
+                    {
+                        name: 'Authorization',
+                        inputType: 'header',
+                        description: "Auth key to API",
+                        type: 'changeHeader',
+                        defaultValue: '582965de-97ea6794-3b2e92e1-64e39fef',
+                        disabled: true
+                    }
                 ]
             },
         ]

@@ -1,7 +1,7 @@
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import CollapseCard from "../collapse-card/collapse-card";
 import "./requiest-item.css";
-import { RequiestQuery } from "../requiest-query/requiest-query";
+import RequiestQuery from "../requiest-query/requiest-query";
 import { ExecuteClearGroup } from "../execute-clear-group/execute-clear-group";
 import { ParamsTitle } from "../params-title/params-title";
 import { ParamsControlBtn } from "../params-control-btn/params-control-btn";
@@ -63,10 +63,7 @@ function RequiestItem({ req }) {
   }, []);
 
   const resetAllParams = useCallback(() => {
-    setUrl(req.base_url)
     setDefaultHeaders()
-    setQueryParams({})
-    setBody({})
   }, [])
 
   const callbacks = {
