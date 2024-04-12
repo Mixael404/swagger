@@ -1,7 +1,7 @@
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import CollapseCard from "../collapse-card/collapse-card";
 import "./requiest-item.css";
-import RequiestQuery from "../requiest-query/requiest-query";
+import RequestQuery from "../request-query/request-query";
 import { ExecuteClearGroup } from "../execute-clear-group/execute-clear-group";
 import { ParamsTitle } from "../params-title/params-title";
 import { ParamsControlBtn } from "../params-control-btn/params-control-btn";
@@ -10,61 +10,57 @@ import { CodeBlock } from "../code-block/code-block";
 import { arrayToObject } from "../../utils/array-to-object/array-to-object";
 import { isNonEmptyFields } from "../../utils/non-emtpy-fields/non-empty-fields";
 import { filterEmptyFields } from "../../utils/filter-empty-fields/filter-empty-fields";
-
+import { QueriesBlock } from "../queries-block/queries-block";
 import { apiService } from "../../api-service/api.service";
 
 function RequiestItem({ req }) {
-  const [access, setAccess] = useState(false);
+  const [access, setAccess] = useState(false); // isAccess  , setIsAccess
   const [url, setUrl] = useState(req.base_url);
 
-  const [queryParams, setQueryParams] = useState(
-    arrayToObject(
-      req.params
-        .filter((param) => param.type === "changeQuery")
-        .map((param) => param.name)
-    )
-  );
-  const [headers, setHeaders] = useState(
-    arrayToObject(
-      req.params
-        .filter((param) => param.type === "changeHeader")
-        .map((param) => param.name)
-    )
-  );
-  const [body, setBody] = useState(
-    arrayToObject(
-      req.params
-        .filter((param) => param.type === "changeBody")
-        .map((param) => param.name)
-    )
-  );
+  // const dataTypeToObj = function(name) {
+  //   return arrayToObject(
+  //     req.params
+  //       .filter((param) => param.type === name)
+  //       .map((param) => param.name)
+  //   )
+  // }
+
+  const [queryParams, setQueryParams] = useState({});
+
+  const [headers, setHeaders] = useState({});
+
+  const [body, setBody] = useState({});
 
   const [response, setResponse] = useState(null);
   const [clear, setClear] = useState(false);
 
-  const isheadersNotEmpty = useMemo(() => isNonEmptyFields(headers), [headers]);
+  const isHeadersNotEmpty = useMemo(() => isNonEmptyFields(headers), [headers]);
   const isBodyNotEmpty = useMemo(() => isNonEmptyFields(body), [body]);
   // console.log("Item rerender");
 
+  // TODO: Поменять название
   const setDefaultHeaders = useCallback(function () {
-    const headers = {};
-    const queries = {};
-    const body = {};
+    const paramTypes = {
+      header: {},
+      query: {},
+      body: {},
+    };
     req.params.forEach((param) => {
       if (param.defaultValue) {
-        if(param.inputType === "header")  headers[param.name] = param.defaultValue;
-        if(param.inputType === "body")  body[param.name] = param.defaultValue;
-        if(param.inputType === "query")  queries[param.name] = param.defaultValue;
+        paramTypes[param.inputType][param.name] = param.defaultValue;
       }
     });
-    setHeaders(headers);
-    setQueryParams(queries);
-    setBody(body)
+
+    const { header, query, body } = paramTypes;
+
+    setHeaders(header);
+    setQueryParams(query);
+    setBody(body);
   }, []);
 
   const resetAllParams = useCallback(() => {
-    setDefaultHeaders()
-  }, [])
+    setDefaultHeaders();
+  }, []);
 
   const callbacks = {
     changeAccess: useCallback(() => {
@@ -88,7 +84,7 @@ function RequiestItem({ req }) {
 
     onClear: useCallback(() => {
       setClear((prev) => !prev);
-      resetAllParams()
+      resetAllParams();
     }, []),
   };
 
@@ -134,7 +130,6 @@ function RequiestItem({ req }) {
     setDefaultHeaders();
   }, []);
 
-
   return (
     <div className="requiest_item">
       <CollapseCard
@@ -153,21 +148,12 @@ function RequiestItem({ req }) {
             />
           </div>
 
-          {req.params && req.params.length ? (
-            <div className="requiest_params_body">
-              <ParamsTitle />
-              {req.params.map((param) => (
-                <RequiestQuery
-                  reqControls={reqControls}
-                  key={param.name}
-                  {...param}
-                  access={access}
-                  clear={clear}
-                  reqId={req.id}
-                />
-              ))}
-            </div>
-          ) : null}
+          <QueriesBlock
+            req={req}
+            reqControls={reqControls}
+            clear={clear}
+            access={access}
+          />
 
           {access && (
             <ExecuteClearGroup
@@ -175,16 +161,18 @@ function RequiestItem({ req }) {
               onClear={callbacks.onClear}
             />
           )}
+          
           <div className="requiest_white_card">
             <p>Responses</p>
           </div>
+
           <CodeBlock
             title={"url"}
-            code={typeof url !== "undefined" ? url : "In progress"}
+            code={url ?? "In progress"}
           />
-          {isheadersNotEmpty && <CodeBlock title={"headers"} code={headers} />}
+          {isHeadersNotEmpty && <CodeBlock title={"headers"} code={headers} />}
           {isBodyNotEmpty && <CodeBlock title={"body"} code={body} />}
-          {response && access && (
+          {response && (
             <CodeBlock title={"Response"} code={response} />
           )}
         </div>

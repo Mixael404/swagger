@@ -1,15 +1,22 @@
-import { memo, useEffect, useRef, useState } from "react"
+import { memo, useEffect, useMemo, useRef, useState } from "react"
 import classes from "./requiest-query.module.css"
 import Select from 'react-select'
 
 function RequiestQuery(props){
     const inputRef = useRef(null)
+    const selectRef = useRef(null)
     const action = props.reqControls[props.type]
 
-    const defaultSelectedValue = (props.options && props.options.length) && props.options.find(option => option.value === props.defaultValue)
-    const handleChange = (e) => {
+
+    const optionsExist = props.options && props.options.length
+    const defaultSelectedValue = optionsExist && props.options.find(option => option.value === props.defaultValue)
+
+    const handleInputChange = (e) => {
         const input = e.target.value
-        action(props.name , input)
+        const trimedInput = input.replaceAll(" ", "")
+        console.log(trimedInput);
+        e.target.value = trimedInput
+        action(props.name , trimedInput)
     }
 
     const handleSelect = (e) => {
@@ -17,10 +24,10 @@ function RequiestQuery(props){
     }
 
     useEffect(() => {
-        if(inputRef.current.setValue && defaultSelectedValue){
-            inputRef.current.setValue(defaultSelectedValue)
-        } else if(inputRef.current.setValue){
-            inputRef.current.setValue({value: '', title: ''})
+        if(selectRef.current && defaultSelectedValue){
+            selectRef.current.setValue(defaultSelectedValue)
+        } else if(selectRef.current){
+            selectRef.current.setValue({value: '', title: ''})
         } else {
             inputRef.current.value = props.defaultValue ?? ''
         }
@@ -39,14 +46,14 @@ function RequiestQuery(props){
                 {props.options ? 
                 <Select
                 options={props.options}
-                ref={inputRef}
+                ref={selectRef}
                 onChange={handleSelect}
                 isDisabled={!props.access || props.disabled}
                 />
                 : <input
                 id={`${props.reqId}-${props.name}`}
                 ref={inputRef}
-                onChange={handleChange}
+                onChange={handleInputChange}
                 disabled={!props.access || props.disabled}
                 type="text" />}
             </div>

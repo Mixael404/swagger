@@ -13,7 +13,6 @@ export const data = {
                         inputType: 'query',
                         description: "Select one post by id",
                         type: "changeQuery",
-                        defaultValue: 1,
                         disabled: false
                     },
                     {

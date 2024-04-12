@@ -16,7 +16,7 @@ export function App() {
    }
   return (
      <Layout>
-        <Header services={services} changeSelectedService={callbacks.changeSelectedService} />
+        <Header services={services}  selectedService={selectedService} changeSelectedService={callbacks.changeSelectedService} />
         <RequiestBody data={data} selectedService={selectedService} />
      </Layout>
   )
