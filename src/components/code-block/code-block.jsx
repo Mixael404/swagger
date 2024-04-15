@@ -1,12 +1,14 @@
-import { memo } from "react"
+import { memo, useEffect } from "react"
 import classes from "./code-block.module.css"
 import { objectToArray } from "../../utils/object-to-array/object-to-array";
 
 function CodeBlockComponent({title,code}){
-    let text; 
+    let text;
     if(typeof code === 'object'){
         text = objectToArray(code)
+        // TODO: Добавить полям порядковый номер, сортировать по возрастанию. Надо прокидывать порядковый номер через пропс.
     }
+
     return(
         <>
           <p className={classes.title}>{title} :</p>

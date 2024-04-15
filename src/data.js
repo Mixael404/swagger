@@ -13,14 +13,16 @@ export const data = {
                         inputType: 'query',
                         description: "Select one post by id",
                         type: "changeQuery",
-                        disabled: false
+                        disabled: false,
+                        number: 1
                     },
                     {
                         name: 'something',
                         inputType: 'query',
                         description: "Something to test",
                         type: "changeQuery",
-                        disabled: false
+                        disabled: false,
+                        number: 2
                     },
                     {
                         name: 'content-type',
@@ -28,14 +30,16 @@ export const data = {
                         description: "Select type of content",
                         type: "changeHeader",
                         defaultValue: 'application/json',
-                        disabled: true
+                        disabled: true,
+                        number: 3
                     },
                     {
                         name: 'content-type2',
                         inputType: "header",
                         description: "Select type of content",
                         type: "changeHeader",
-                        disabled: false
+                        disabled: false,
+                        number: 4
                     },
                 ]
             },
@@ -46,6 +50,7 @@ export const data = {
                 base_url: 'https://jsonplaceholder.typicode.com/posts',
                 params:[
                     {
+                        number: 1,
                         name: 'title',
                         inputType: "body",
                         description: "Title of added post",
@@ -53,6 +58,7 @@ export const data = {
                         disabled: false
                     },
                     {
+                        number: 2,
                         name: 'body',
                         inputType: "body",
                         description: "Body of added post",
@@ -60,6 +66,7 @@ export const data = {
                         disabled: false
                     },
                     {
+                        number: 3,
                         name: 'userId',
                         inputType: "body",
                         description: "Id of user that added post",
@@ -73,7 +80,8 @@ export const data = {
                         description: "Select type of content",
                         type: "changeHeader",
                         defaultValue: 'application/json',
-                        disabled: false
+                        disabled: false,
+                        number: 4,
                     },
                 ]
             },
@@ -135,44 +143,6 @@ export const data = {
                 method: "DELETE",
                 params:[
                     
-                ]
-            },
-        ]
-    },
-    cheese: {
-        title: "cheese",
-        requiests: [
-            {
-                id: 9,
-                base_url: 'https://cheese-api.onrender.com/cheeses',
-                title: "Get all cheeses",
-                method: "GET",
-                params:[
-                    
-                ]
-            },
-            {
-                id: 10,
-                base_url: 'https://cheese-api.onrender.com/cheese',
-                title: "Get one cheese by name",
-                method: "GET",
-                params:[
-                    {
-                        name: 'name',
-                        inputType: 'url',
-                        description: "Select one cheese by name",
-                        type: "changeUrl",
-                        disabled: false
-                    },
-                ]
-            },
-            {
-                id: 11,
-                base_url: 'https://cheese-api.onrender.com/random',
-                title: "Get one random cheese",
-                method: "GET",
-                params:[
-
                 ]
             },
         ]

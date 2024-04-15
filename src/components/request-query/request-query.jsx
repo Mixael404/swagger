@@ -1,8 +1,8 @@
-import { memo, useEffect, useMemo, useRef, useState } from "react"
+import { memo, useEffect, useMemo, useRef } from "react"
 import classes from "./requiest-query.module.css"
 import Select from 'react-select'
 
-function RequiestQuery(props){
+function RequestQuery(props){
     const inputRef = useRef(null)
     const selectRef = useRef(null)
     const action = props.reqControls[props.type]
@@ -13,10 +13,9 @@ function RequiestQuery(props){
 
     const handleInputChange = (e) => {
         const input = e.target.value
-        const trimedInput = input.replaceAll(" ", "")
-        console.log(trimedInput);
-        e.target.value = trimedInput
-        action(props.name , trimedInput)
+        const trimmedInput = input.replaceAll(" ", "")
+        e.target.value = trimmedInput
+        action(props.name , trimmedInput)
     }
 
     const handleSelect = (e) => {
@@ -61,5 +60,4 @@ function RequiestQuery(props){
     )
 }
 
-export default memo(RequiestQuery)
-// {name,inputType, description, access, reqControls}
+export default memo(RequestQuery)

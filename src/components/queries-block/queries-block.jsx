@@ -8,7 +8,7 @@ function QueriesBlockComponent({req, reqControls, clear, access}){
         <>
         {
             req.params && req.params.length ? (
-            <form className={classes.queries_block}>
+            <div className={classes.queries_block}>
               <ParamsTitle />
               {req.params.map((param) => (
                 <RequestQuery
@@ -20,8 +20,7 @@ function QueriesBlockComponent({req, reqControls, clear, access}){
                   reqId={req.id}
                 />
               ))}
-              {/* <input type="reset" /> */}
-            </form>
+            </div>
           ) : null
         }
         </>

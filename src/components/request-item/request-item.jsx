@@ -1,45 +1,34 @@
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import CollapseCard from "../collapse-card/collapse-card";
-import "./requiest-item.css";
-import RequestQuery from "../request-query/request-query";
+import "./request-item.css";
 import { ExecuteClearGroup } from "../execute-clear-group/execute-clear-group";
-import { ParamsTitle } from "../params-title/params-title";
 import { ParamsControlBtn } from "../params-control-btn/params-control-btn";
 import { getColor } from "../../utils/get-color/get-color";
 import { CodeBlock } from "../code-block/code-block";
-import { arrayToObject } from "../../utils/array-to-object/array-to-object";
 import { isNonEmptyFields } from "../../utils/non-emtpy-fields/non-empty-fields";
 import { filterEmptyFields } from "../../utils/filter-empty-fields/filter-empty-fields";
 import { QueriesBlock } from "../queries-block/queries-block";
 import { apiService } from "../../api-service/api.service";
+import { objectToArray } from "../../utils/object-to-array/object-to-array";
+import { arrayToObject } from "../../utils/array-to-object/array-to-object";
 
-function RequiestItem({ req }) {
+function RequestItem({ req }) {
   const [access, setAccess] = useState(false); // isAccess  , setIsAccess
   const [url, setUrl] = useState(req.base_url);
 
-  // const dataTypeToObj = function(name) {
-  //   return arrayToObject(
-  //     req.params
-  //       .filter((param) => param.type === name)
-  //       .map((param) => param.name)
-  //   )
-  // }
-
   const [queryParams, setQueryParams] = useState({});
-
   const [headers, setHeaders] = useState({});
-
   const [body, setBody] = useState({});
 
   const [response, setResponse] = useState(null);
   const [clear, setClear] = useState(false);
 
+
   const isHeadersNotEmpty = useMemo(() => isNonEmptyFields(headers), [headers]);
   const isBodyNotEmpty = useMemo(() => isNonEmptyFields(body), [body]);
-  // console.log("Item rerender");
+  console.log("Item rerender");
 
-  // TODO: Поменять название
-  const setDefaultHeaders = useCallback(function () {
+  const setDefaultParams = useCallback(function () {
     const paramTypes = {
       header: {},
       query: {},
@@ -59,7 +48,7 @@ function RequiestItem({ req }) {
   }, []);
 
   const resetAllParams = useCallback(() => {
-    setDefaultHeaders();
+    setDefaultParams();
   }, []);
 
   const callbacks = {
@@ -67,7 +56,7 @@ function RequiestItem({ req }) {
       setAccess((prev) => !prev);
       setClear((prev) => !prev);
       setResponse("");
-      setDefaultHeaders();
+      setDefaultParams();
     }, []),
 
     onExecute: useCallback(async () => {
@@ -90,6 +79,18 @@ function RequiestItem({ req }) {
 
   const color = getColor(req.method);
 
+  const sortParams = (params) => {
+      const newData = objectToArray(params)
+
+        newData.sort((a,b) => {
+          const firstNumber = req.params.find(req => req.name === a[0]).number
+          const secondNumber = req.params.find(req => req.name === b[0]).number
+          return firstNumber - secondNumber
+        })
+
+        return arrayToObject(newData);
+  }
+
   const reqControls = {
     changeUrl: useCallback((key, value) => {
       setUrl(req.base_url + `/${value}`);
@@ -97,22 +98,24 @@ function RequiestItem({ req }) {
 
     changeQuery: useCallback((key, value) => {
       setQueryParams((prev) => {
-        return { ...prev, [key]: value };
+        return sortParams({ ...prev, [key]: value });
       });
     }, []),
 
     changeHeader: useCallback((key, value) => {
       setHeaders((prev) => {
-        return { ...prev, [key]: value };
+        return sortParams({ ...prev, [key]: value });
       });
     }, []),
 
     changeBody: useCallback((key, value) => {
       setBody((prev) => {
-        return { ...prev, [key]: value };
+        return sortParams({ ...prev, [key]: value });
+
       });
     }, []),
   };
+
 
   useEffect(() => {
     const queryString = ["?"];
@@ -127,7 +130,7 @@ function RequiestItem({ req }) {
   }, [queryParams]);
 
   useEffect(() => {
-    setDefaultHeaders();
+    setDefaultParams();
   }, []);
 
   return (
@@ -148,6 +151,7 @@ function RequiestItem({ req }) {
             />
           </div>
 
+          {/* TODO: Вынести кнопки в QueriesBlock */}
           <QueriesBlock
             req={req}
             reqControls={reqControls}
@@ -162,6 +166,7 @@ function RequiestItem({ req }) {
             />
           )}
           
+          {/* TODO: Вынести в отдельный компонент */}
           <div className="requiest_white_card">
             <p>Responses</p>
           </div>
@@ -181,4 +186,4 @@ function RequiestItem({ req }) {
   );
 }
 
-export default memo(RequiestItem);
+export default memo(RequestItem);
