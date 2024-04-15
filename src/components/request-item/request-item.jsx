@@ -23,10 +23,8 @@ function RequestItem({ req }) {
   const [response, setResponse] = useState(null);
   const [clear, setClear] = useState(false);
 
-
   const isHeadersNotEmpty = useMemo(() => isNonEmptyFields(headers), [headers]);
   const isBodyNotEmpty = useMemo(() => isNonEmptyFields(body), [body]);
-  console.log("Item rerender");
 
   const setDefaultParams = useCallback(function () {
     const paramTypes = {
@@ -37,6 +35,8 @@ function RequestItem({ req }) {
     req.params.forEach((param) => {
       if (param.defaultValue) {
         paramTypes[param.inputType][param.name] = param.defaultValue;
+      } else{
+        paramTypes[param.inputType][param.name] = null;
       }
     });
 
@@ -79,17 +79,6 @@ function RequestItem({ req }) {
 
   const color = getColor(req.method);
 
-  const sortParams = (params) => {
-      const newData = objectToArray(params)
-
-        newData.sort((a,b) => {
-          const firstNumber = req.params.find(req => req.name === a[0]).number
-          const secondNumber = req.params.find(req => req.name === b[0]).number
-          return firstNumber - secondNumber
-        })
-
-        return arrayToObject(newData);
-  }
 
   const reqControls = {
     changeUrl: useCallback((key, value) => {
@@ -98,19 +87,19 @@ function RequestItem({ req }) {
 
     changeQuery: useCallback((key, value) => {
       setQueryParams((prev) => {
-        return sortParams({ ...prev, [key]: value });
+        return { ...prev, [key]: value };
       });
     }, []),
 
     changeHeader: useCallback((key, value) => {
       setHeaders((prev) => {
-        return sortParams({ ...prev, [key]: value });
+        return { ...prev, [key]: value };
       });
     }, []),
 
     changeBody: useCallback((key, value) => {
       setBody((prev) => {
-        return sortParams({ ...prev, [key]: value });
+        return { ...prev, [key]: value };
 
       });
     }, []),

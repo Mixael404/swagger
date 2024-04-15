@@ -14,7 +14,6 @@ export const data = {
                         description: "Select one post by id",
                         type: "changeQuery",
                         disabled: false,
-                        number: 1
                     },
                     {
                         name: 'something',
@@ -22,7 +21,6 @@ export const data = {
                         description: "Something to test",
                         type: "changeQuery",
                         disabled: false,
-                        number: 2
                     },
                     {
                         name: 'content-type',
@@ -31,7 +29,6 @@ export const data = {
                         type: "changeHeader",
                         defaultValue: 'application/json',
                         disabled: true,
-                        number: 3
                     },
                     {
                         name: 'content-type2',
@@ -39,7 +36,6 @@ export const data = {
                         description: "Select type of content",
                         type: "changeHeader",
                         disabled: false,
-                        number: 4
                     },
                 ]
             },
@@ -50,7 +46,6 @@ export const data = {
                 base_url: 'https://jsonplaceholder.typicode.com/posts',
                 params:[
                     {
-                        number: 1,
                         name: 'title',
                         inputType: "body",
                         description: "Title of added post",
@@ -58,7 +53,6 @@ export const data = {
                         disabled: false
                     },
                     {
-                        number: 2,
                         name: 'body',
                         inputType: "body",
                         description: "Body of added post",
@@ -66,7 +60,6 @@ export const data = {
                         disabled: false
                     },
                     {
-                        number: 3,
                         name: 'userId',
                         inputType: "body",
                         description: "Id of user that added post",
@@ -81,7 +74,6 @@ export const data = {
                         type: "changeHeader",
                         defaultValue: 'application/json',
                         disabled: false,
-                        number: 4,
                     },
                 ]
             },

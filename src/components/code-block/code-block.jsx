@@ -6,7 +6,6 @@ function CodeBlockComponent({title,code}){
     let text;
     if(typeof code === 'object'){
         text = objectToArray(code)
-        // TODO: Добавить полям порядковый номер, сортировать по возрастанию. Надо прокидывать порядковый номер через пропс.
     }
 
     return(
@@ -14,7 +13,7 @@ function CodeBlockComponent({title,code}){
           <p className={classes.title}>{title} :</p>
           <div className={classes.code_block}>
               {typeof code === "string" && <code>{code}</code>}
-              {typeof code === 'object' && text.map(header => <code key={header[0]}> {`${header[0]}: ${header[1]}`} </code>)}
+              {typeof code === 'object' && text.map(param => <code key={param[0]}> {`${param[0]}: ${param[1]}`} </code>)}
           </div>
         </>
     )
