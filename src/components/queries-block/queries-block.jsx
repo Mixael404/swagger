@@ -3,7 +3,7 @@ import classes from "./queries-block.module.css"
 import RequestQuery from "../request-query/request-query";
 import { ParamsTitle } from "../params-title/params-title";
 
-function QueriesBlockComponent({req, reqControls, clear, access}){
+function QueriesBlockComponent({req, reqControls, clear, isAccess}){
     return(
         <>
         {
@@ -15,7 +15,7 @@ function QueriesBlockComponent({req, reqControls, clear, access}){
                   reqControls={reqControls}
                   key={param.name}
                   {...param}
-                  access={access}
+                  isAccess={isAccess}
                   clear={clear}
                   reqId={req.id}
                 />

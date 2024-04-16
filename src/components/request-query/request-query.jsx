@@ -31,7 +31,7 @@ function RequestQuery(props){
             inputRef.current.value = props.defaultValue ?? ''
         }
 
-    }, [props.clear, props.access])
+    }, [props.clear, props.isAccess])
 
 
     return(
@@ -47,13 +47,13 @@ function RequestQuery(props){
                 options={props.options}
                 ref={selectRef}
                 onChange={handleSelect}
-                isDisabled={!props.access || props.disabled}
+                isDisabled={!props.isAccess || props.disabled}
                 />
                 : <input
                 id={`${props.reqId}-${props.name}`}
                 ref={inputRef}
                 onChange={handleInputChange}
-                disabled={!props.access || props.disabled}
+                disabled={!props.isAccess || props.disabled}
                 type="text" />}
             </div>
         </div>

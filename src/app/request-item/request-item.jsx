@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import CollapseCard from "../../components/collapse-card/collapse-card";
 import { ParamsControlBtn } from "../../components/params-control-btn/params-control-btn";
 import { getColor } from "../../utils/get-color/get-color";
@@ -8,6 +8,7 @@ import { apiService } from "../../api-service/api.service";
 import { WhiteCard } from "../../components/white-card/white-card";
 import { RequestTitle } from "../../components/request-title/request-title";
 import { RequestControls } from "../request-controls/request-controls";
+import { addParamsToUrl } from "../../utils/add-params-to-url/add-params-to-url";
 
 // TODO: Добавить где нибудь тултип с расшифровкой принимаемых параметров и результата запроса
 function RequestItem({ req }) {
@@ -40,6 +41,11 @@ function RequestItem({ req }) {
     setQueryParams(query);
     setBody(body);
   }, []);
+
+  const params = useMemo(() => {
+   return {url, queryParams, headers, body}
+  }, [url, headers, body]) 
+
 
   const callbacks = {
     changeAccess: useCallback(() => {
@@ -78,15 +84,7 @@ function RequestItem({ req }) {
   };
 
   useEffect(() => {
-    const queryString = ["?"];
-    for (const key in queryParams) {
-      if (queryParams[key]) {
-        const string = `${key}=${queryParams[key]}&`;
-        queryString.push(string);
-      }
-    }
-    const params = queryString.join("").slice(0, -1);
-    setUrl(`${req.base_url}${params}`);
+    setUrl(addParamsToUrl(req.base_url, queryParams));
   }, [queryParams]);
 
   useEffect(() => {
@@ -114,17 +112,16 @@ function RequestItem({ req }) {
           req={req}
           reqControls={reqControls}
           clear={clear}
-          access={isAccess}
+          isAccess={isAccess}
         />
 
         <RequestControls 
         isAccess={isAccess}
-        url={url}
-        headers={headers}
-        body={body}
+        params={params}
         method={req.method}
         onClear={callbacks.onClear}
         />
+
       </CollapseCard>
     </div>
   );

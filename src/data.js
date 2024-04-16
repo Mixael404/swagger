@@ -14,6 +14,7 @@ export const data = {
                         description: "Select one post by id",
                         type: "changeQuery",
                         disabled: false,
+                        defaultValue: 1
                     },
                     {
                         name: 'something',

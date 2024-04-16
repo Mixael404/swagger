@@ -5,21 +5,20 @@ import { ResponsesBlock } from "../../components/responses-block/responses-block
 import { filterEmptyFields } from "../../utils/filter-empty-fields/filter-empty-fields";
 import { apiService } from "../../api-service/api.service";
 
-function RequestControlsComponent({isAccess, url, headers, body, method, onClear}) {
+function RequestControlsComponent({isAccess, params, method, onClear}) {
     const [response, setResponse] = useState(null)
-
     const callbacks = {
         onExecute: useCallback(async () => {
-            const filteredHeaders = filterEmptyFields(headers);
+            const filteredHeaders = filterEmptyFields(params.headers);
       
             const data = await apiService.requiest(
-              url,
+              params.url,
               method,
               filteredHeaders,
-              body
+              params.body
             );
             setResponse(data);
-          }, [url, headers, body]),
+          }, [params.url, params.headers, params.body]),
     }
 
     useEffect(() => {
@@ -27,6 +26,7 @@ function RequestControlsComponent({isAccess, url, headers, body, method, onClear
             setResponse('')
         }
     }, [isAccess])
+
   return (
     <>
       {isAccess && (
@@ -37,9 +37,9 @@ function RequestControlsComponent({isAccess, url, headers, body, method, onClear
       )}
 
       <ResponsesBlock
-        url={url}
-        headers={headers}
-        body={body}
+        url={params.url}
+        headers={params.headers}
+        body={params.body}
         response={response}
       />
     </>
