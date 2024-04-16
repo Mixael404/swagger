@@ -1,12 +1,12 @@
 import { memo } from "react"
 import classes from "./requiests-layout.module.css"
 
-function RequiestsLayout({children}){
+function RequestsLayout({children}){
     return(
-        <div className={classes.requiests_layout}>
+        <div className={classes.requests_layout}>
             {children}
         </div>
     )
 }
 
-export default memo(RequiestsLayout)
+export default memo(RequestsLayout)

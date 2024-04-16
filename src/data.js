@@ -1,7 +1,7 @@
 export const data = {
     jsonplaceholder:{
         title: "jsonplaceholder",
-        requiests: [
+        requests: [
             {
                 id: 1,
                 title: "Get posts",
@@ -141,7 +141,7 @@ export const data = {
     },
     fortniteapi: {
         title: 'fortniteapi',
-        requiests: [
+        requests: [
             {
                 id: 12,
                 base_url: 'https://fortniteapi.io/v2/shop',

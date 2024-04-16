@@ -1,0 +1,11 @@
+.responses_block {
+}
+.request_white_card {
+  padding: 0.3rem 6px;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
+}

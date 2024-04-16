@@ -1,4 +1,4 @@
-import { memo, useEffect, useMemo, useRef } from "react"
+import { memo, useEffect, useRef } from "react"
 import classes from "./requiest-query.module.css"
 import Select from 'react-select'
 

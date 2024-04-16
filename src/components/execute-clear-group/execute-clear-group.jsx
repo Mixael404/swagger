@@ -1,4 +1,4 @@
-import classes from "./execute-clear-group.module.css"
+import "./execute-clear-group.css"
 
 export function ExecuteClearGroup({onExecute, onClear}){
     return(

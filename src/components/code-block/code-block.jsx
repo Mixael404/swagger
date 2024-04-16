@@ -1,4 +1,4 @@
-import { memo, useEffect } from "react"
+import { memo } from "react"
 import classes from "./code-block.module.css"
 import { objectToArray } from "../../utils/object-to-array/object-to-array";
 
