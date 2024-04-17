@@ -1,5 +1,5 @@
 import Layout from '../components/layouts/main-layout/layout'
-import RequestsList from './request-list/requests-list'
+import RequestsList from './requests-list/requests-list'
 import { data } from '../data'
 import { useCallback, useState } from 'react'
 import Header from '../components/header/header'

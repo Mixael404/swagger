@@ -5,7 +5,6 @@ function CollapseCard({id, title, color, method, children}) {
 
   const buttonRef = useRef(null)
 
-  // To make requiest collapsed button full circled after mounting (without it button without border-radius in the bottom)
   useEffect(() => {
     buttonRef.current.classList.add("collapsed")
   }, [id])

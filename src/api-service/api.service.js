@@ -8,7 +8,7 @@ export class APIService{
      * @param {object} body 
      * @returns 
      */
-    async requiest(url, method, headers, body = null){
+    async request(url, method, headers, body = null){
         const params = {
             method: method,
             headers: {...headers},

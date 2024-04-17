@@ -7,6 +7,7 @@ export const data = {
                 title: "Get posts",
                 method: "GET",
                 base_url: 'https://jsonplaceholder.typicode.com/posts',
+                tooltipContent: `Returns list of all posts or one post with selected id`,
                 params:[
                     {
                         name: 'id',
@@ -45,6 +46,7 @@ export const data = {
                 title: "Create post",
                 method: "POST",
                 base_url: 'https://jsonplaceholder.typicode.com/posts',
+                tooltipContent: 'Important: resource will not be really updated on the server but it will be faked as if.',
                 params:[
                     {
                         name: 'title',
@@ -83,6 +85,7 @@ export const data = {
                 title: "Update post",
                 method: "PUT",
                 base_url: 'https://jsonplaceholder.typicode.com/posts',
+                tooltipContent: 'Important: resource will not be really updated on the server but it will be faked as if.',
                 params:[
                     {
                         name: 'id',
@@ -123,19 +126,19 @@ export const data = {
                 ]
             },
             {
-                id: 3,
-                title: "Get comments",
-                method: "GET",
-                params:[
-                    
-                ]
-            },
-            {
                 id: 4,
-                title: "Delete images",
+                title: "Delete post",
                 method: "DELETE",
+                base_url: 'https://jsonplaceholder.typicode.com/posts',
+                tooltipContent: 'Important: resource will not be really updated on the server but it will be faked as if.',
                 params:[
-                    
+                    {
+                        name: 'id',
+                        inputType: "query",
+                        description: "Id of deleted post",
+                        type: "changeUrl",
+                        disabled: false
+                    },
                 ]
             },
         ]
@@ -148,6 +151,7 @@ export const data = {
                 base_url: 'https://fortniteapi.io/v2/shop',
                 title: "Get daily products",
                 method: 'GET',
+                tooltipContent: 'List all items currently in the shop',
                 params: [
                     {
                         name: 'lang',
@@ -177,6 +181,7 @@ export const data = {
                 base_url: 'https://fortniteapi.io/v2/items/get',
                 title: "Get item details",
                 method: 'GET',
+                tooltipContent: 'Get all available details about an item.',
                 params: [
                     {
                         name: "id",

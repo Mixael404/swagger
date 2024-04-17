@@ -23,7 +23,7 @@ function Header({ changeSelectedService, services, selectedService }) {
           </option>
         ))}
       </select>
-      <button>Click me</button>
+        <a href="https://github.com/Mixael404/swagger" target="blank">Repo</a>
     </div>
   );
 }

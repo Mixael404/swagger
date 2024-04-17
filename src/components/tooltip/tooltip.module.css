@@ -1,0 +1,8 @@
+.svg {
+    background-color: #fff;
+    padding: 3px;
+    border-radius: 50%;
+}
+svg:focus{
+    outline: none !important;
+}

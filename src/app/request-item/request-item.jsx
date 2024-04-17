@@ -9,6 +9,8 @@ import { WhiteCard } from "../../components/white-card/white-card";
 import { RequestTitle } from "../../components/request-title/request-title";
 import { RequestControls } from "../request-controls/request-controls";
 import { addParamsToUrl } from "../../utils/add-params-to-url/add-params-to-url";
+import { SpaceBetweenLayout } from "../../components/layouts/space-between-layout/space-between-layout";
+import { Tooltip } from "../../components/tooltip/tooltip";
 
 // TODO: Добавить где нибудь тултип с расшифровкой принимаемых параметров и результата запроса
 function RequestItem({ req }) {
@@ -99,7 +101,10 @@ function RequestItem({ req }) {
         method={req.method}
         color={getColor(req.method)}
       >
-        <RequestTitle title={req.title} />
+        <SpaceBetweenLayout>
+          <RequestTitle title={req.title} />
+          <Tooltip text={req.tooltipContent}/>
+        </SpaceBetweenLayout>
 
         <WhiteCard title={'Parameters'}>
           <ParamsControlBtn

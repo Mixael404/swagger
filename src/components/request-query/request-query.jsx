@@ -7,7 +7,6 @@ function RequestQuery(props){
     const selectRef = useRef(null)
     const action = props.reqControls[props.type]
 
-
     const optionsExist = props.options && props.options.length
     const defaultSelectedValue = optionsExist && props.options.find(option => option.value === props.defaultValue)
 

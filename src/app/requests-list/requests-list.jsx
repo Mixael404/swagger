@@ -12,7 +12,7 @@ function RequestsList({ data, selectedService }) {
         <RequestItem key={req.id} req={req} />
       ))}
 
-      <div>Base url: {selectedService}</div>
+      <div>Service: {selectedService}</div>
     </RequestsLayout>
   );
 }

@@ -11,7 +11,7 @@ function RequestControlsComponent({isAccess, params, method, onClear}) {
         onExecute: useCallback(async () => {
             const filteredHeaders = filterEmptyFields(params.headers);
       
-            const data = await apiService.requiest(
+            const data = await apiService.request(
               params.url,
               method,
               filteredHeaders,
