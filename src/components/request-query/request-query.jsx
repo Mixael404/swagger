@@ -41,14 +41,16 @@ function RequestQuery(props){
             </div>
             <div className={classes.description_container}>
                 <p> {props.description} </p>
-                {props.options ? 
+                {props.options 
+                ? 
                 <Select
                 options={props.options}
                 ref={selectRef}
                 onChange={handleSelect}
                 isDisabled={!props.isAccess || props.disabled}
                 />
-                : <input
+                : 
+                <input
                 id={`${props.reqId}-${props.name}`}
                 ref={inputRef}
                 onChange={handleInputChange}

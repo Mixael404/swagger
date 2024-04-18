@@ -1,10 +1,11 @@
 import { memo, useEffect, useRef } from "react";
 import "./collapse-card.css";
+import { getColor } from "../../utils/get-color/get-color";
 
-function CollapseCard({id, title, color, method, children}) {
+function CollapseCard({id, title, method, children}) {
 
   const buttonRef = useRef(null)
-
+  const color = getColor(method)
   useEffect(() => {
     buttonRef.current.classList.add("collapsed")
   }, [id])

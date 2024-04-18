@@ -1,0 +1,14 @@
+.button {
+  color: black;
+  text-decoration: none;
+  border: 2px solid #939393;
+  border-radius: 10px;
+  padding: 10px 20px;
+  transition: all 200ms ease-in-out;
+}
+
+.button:hover {
+  color: black;
+  text-decoration: none;
+  border-color: blueviolet;
+}

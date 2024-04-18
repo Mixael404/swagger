@@ -1,7 +1,6 @@
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import CollapseCard from "../../components/collapse-card/collapse-card";
 import { ParamsControlBtn } from "../../components/params-control-btn/params-control-btn";
-import { getColor } from "../../utils/get-color/get-color";
 import { QueriesBlock } from "../../components/queries-block/queries-block";
 import { WhiteCard } from "../../components/white-card/white-card";
 import { RequestTitle } from "../../components/request-title/request-title";
@@ -42,9 +41,8 @@ function RequestItem({ req }) {
   }, []);
 
   const params = useMemo(() => {
-   return {url, queryParams, headers, body}
-  }, [url, headers, body]) 
-
+    return { url, queryParams, headers, body };
+  }, [url, headers, body]);
 
   const callbacks = {
     changeAccess: useCallback(() => {
@@ -82,6 +80,7 @@ function RequestItem({ req }) {
     }, []),
   };
 
+  
   useEffect(() => {
     setUrl(addParamsToUrl(req.base_url, queryParams));
   }, [queryParams]);
@@ -91,19 +90,19 @@ function RequestItem({ req }) {
   }, [clear]);
 
   return (
-    <div style={{width: '95%'}}>
+    <div style={{ width: "95%" }}>
       <CollapseCard
         id={req.id}
         title={req.title}
         method={req.method}
-        color={getColor(req.method)}
       >
+
         <SpaceBetweenLayout>
           <RequestTitle title={req.title} />
-          <Tooltip text={req.tooltipContent}/>
+          <Tooltip text={req.tooltipContent} />
         </SpaceBetweenLayout>
 
-        <WhiteCard title={'Parameters'}>
+        <WhiteCard title={"Parameters"}>
           <ParamsControlBtn
             access={isAccess}
             setAccess={callbacks.changeAccess}
@@ -117,13 +116,12 @@ function RequestItem({ req }) {
           isAccess={isAccess}
         />
 
-        <RequestControls 
-        isAccess={isAccess}
-        params={params}
-        method={req.method}
-        onClear={callbacks.onClear}
+        <RequestControls
+          isAccess={isAccess}
+          params={params}
+          method={req.method}
+          onClear={callbacks.onClear}
         />
-
       </CollapseCard>
     </div>
   );
