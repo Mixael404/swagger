@@ -5,8 +5,8 @@ import { Tooltip as TooltipController } from "react-tooltip";
 function TooltipComponent({text}) {
   return (
     <>
-      {/* <img width={30} height={30} className={classes.tooltip} src="https://cdn-icons-png.flaticon.com/512/25/25333.png" alt="" /> */}
-      <svg
+      <img width={30} height={30} data-tooltip-id="my-tooltip"  className={classes.tooltip} src="https://cdn-icons-png.flaticon.com/512/25/25333.png" alt="" />
+      {/* <svg
         id="tooltip"
         data-tooltip-id="my-tooltip" 
         version="1.0"
@@ -38,7 +38,7 @@ c380 -46 694 -80 698 -77 4 4 19 69 33 146 160 877 511 1442 1076 1735 282
 c-1 735 -3 841 -17 907 l-17 75 -762 3 -763 2 -5 -22z"
           />
         </g>
-      </svg>
+      </svg> */}
 
       <TooltipController
       style={{ whiteSpace: 'break-all', maxWidth: '100%' }}
