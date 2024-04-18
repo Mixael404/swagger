@@ -6,3 +6,6 @@
 svg:focus{
     outline: none !important;
 }
+#tooltip:focus{
+    outline: none !important;
+}

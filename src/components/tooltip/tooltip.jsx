@@ -7,6 +7,7 @@ function TooltipComponent({text}) {
     <>
       {/* <img width={30} height={30} className={classes.tooltip} src="https://cdn-icons-png.flaticon.com/512/25/25333.png" alt="" /> */}
       <svg
+        id="tooltip"
         data-tooltip-id="my-tooltip" 
         version="1.0"
         xmlns="http://www.w3.org/2000/svg"
