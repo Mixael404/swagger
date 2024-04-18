@@ -10,9 +10,7 @@ function Header({ changeSelectedService, services, selectedService }) {
     <div className={classes.Header}>
       <select
         onChange={onSelect}
-        // defaultValue={services.indexOf("jsonplaceholder")}
         defaultValue={selectedService}
-        // defaultValue={"cheese"}
       >
         {services.map((service) => (
           <option 

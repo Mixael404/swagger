@@ -2,9 +2,7 @@ import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import CollapseCard from "../../components/collapse-card/collapse-card";
 import { ParamsControlBtn } from "../../components/params-control-btn/params-control-btn";
 import { getColor } from "../../utils/get-color/get-color";
-import { filterEmptyFields } from "../../utils/filter-empty-fields/filter-empty-fields";
 import { QueriesBlock } from "../../components/queries-block/queries-block";
-import { apiService } from "../../api-service/api.service";
 import { WhiteCard } from "../../components/white-card/white-card";
 import { RequestTitle } from "../../components/request-title/request-title";
 import { RequestControls } from "../request-controls/request-controls";
@@ -12,7 +10,6 @@ import { addParamsToUrl } from "../../utils/add-params-to-url/add-params-to-url"
 import { SpaceBetweenLayout } from "../../components/layouts/space-between-layout/space-between-layout";
 import { Tooltip } from "../../components/tooltip/tooltip";
 
-// TODO: Добавить где нибудь тултип с расшифровкой принимаемых параметров и результата запроса
 function RequestItem({ req }) {
   const [isAccess, setIsAccess] = useState(false);
 
@@ -94,7 +91,7 @@ function RequestItem({ req }) {
   }, [clear]);
 
   return (
-    <div style={{width: '100%'}}>
+    <div style={{width: '95%'}}>
       <CollapseCard
         id={req.id}
         title={req.title}

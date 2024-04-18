@@ -19,3 +19,17 @@ a:hover{
     text-decoration: none;
     border-color: blueviolet;
 }
+
+select,select:focus, select:focus-visible{
+    padding: 3px 5px;
+    background-color: transparent;
+    border: 2px solid black;
+    outline: none;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: rgb(150, 53, 242);
+}
+
+select option{
+    color: black;
+}
