@@ -12,12 +12,44 @@
 .name_container p:last-child{
     color: gray;
 }
+.description_container{
+    position: relative;
+}
 .name_container p:first-child, .description_container p:first-child{
     margin-bottom: .4rem;
     font-size: 16px;
     font-weight: 500;
 }
-
+.select_wrapper{
+    border-radius: 6px;
+    min-width: 200px;
+    max-width: 300px;
+    display: inline-block;
+}
+.react-select-container{
+    width: 100%;
+}
+span.required{
+    font-size: 22px;
+    font-weight: 500;
+}
+.invalid{
+    border: 2px solid red !important;
+}
+input:focus{
+    outline: none;
+}
+.error{
+    color: rgb(204, 0, 0);
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    margin-top: .2rem;
+}
+.input_group{
+    display: flex;
+    align-items: center;
+}
 @media(min-width: 768px){
     .requiest_query {
         flex-direction: row;

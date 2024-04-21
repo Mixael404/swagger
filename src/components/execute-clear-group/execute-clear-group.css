@@ -10,3 +10,7 @@
     width: 100%;
     justify-content: center;
 }
+.btn.btn-info:disabled{
+    background-color: gray;
+    border-color: gray;
+}

@@ -1,11 +1,11 @@
-import { memo, useState, useCallback, useEffect } from "react";
+import { memo, useState, useCallback, useEffect} from "react";
 import { ExecuteClearGroup } from "../../components/execute-clear-group/execute-clear-group";
-import { ResponsesBlock } from "../../components/responses-block/responses-block";
+import ResponsesBlock  from "../../components/responses-block/responses-block";
 import { filterEmptyFields } from "../../utils/filter-empty-fields/filter-empty-fields";
-import { apiService } from "../../api-service/api.service";
+import { apiService } from "../../services/api.service";
 import { Loading } from "../../components/loading/loading";
 
-function RequestControlsComponent({ isAccess, params, method, onClear }) {
+function RequestControls({ isAccess, params, method, onClear, isAnyMistake }) {
   const [response, setResponse] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,11 +32,11 @@ function RequestControlsComponent({ isAccess, params, method, onClear }) {
 
   return (
     <Loading isLoading={isLoading}>
-      <>
         {isAccess && (
           <ExecuteClearGroup
             onExecute={callbacks.onExecute}
             onClear={onClear}
+            isAnyMistake={isAnyMistake}
           />
         )}
 
@@ -46,9 +46,8 @@ function RequestControlsComponent({ isAccess, params, method, onClear }) {
           body={params.body}
           response={response ? JSON.stringify(response) : null}
         />
-      </>
     </Loading>
   );
 }
 
-export const RequestControls = memo(RequestControlsComponent);
+export default memo(RequestControls);

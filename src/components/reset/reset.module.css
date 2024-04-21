@@ -1,0 +1,11 @@
+.reset {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 3px;
+    margin-bottom: 3px;
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
+}
+.reset:hover{
+    transform: scale(1.2,1.2);
+}

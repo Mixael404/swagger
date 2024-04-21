@@ -5,7 +5,6 @@ import { ServiceContextProvider } from '../context/service-context'
 
 
 export function App() {
-
   return (
    <ServiceContextProvider>
      <Layout>

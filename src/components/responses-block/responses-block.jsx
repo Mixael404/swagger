@@ -4,7 +4,7 @@ import { isNonEmptyFields } from "../../utils/non-emtpy-fields/non-empty-fields"
 import { CodeBlock } from "../code-block/code-block";
 import { WhiteCard } from "../white-card/white-card";
 
-function ResponsesBlockComponent({ url, headers, body, response }) {
+function ResponsesBlock({ url, headers, body, response }) {
   const isHeadersNotEmpty = useMemo(() => isNonEmptyFields(headers), [headers]);
   const isBodyNotEmpty = useMemo(() => isNonEmptyFields(body), [body]);
 
@@ -20,4 +20,4 @@ function ResponsesBlockComponent({ url, headers, body, response }) {
   );
 }
 
-export const ResponsesBlock = memo(ResponsesBlockComponent);
+export default memo(ResponsesBlock);

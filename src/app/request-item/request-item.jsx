@@ -4,13 +4,15 @@ import { ParamsControlBtn } from "../../components/params-control-btn/params-con
 import { QueriesBlock } from "../../components/queries-block/queries-block";
 import { WhiteCard } from "../../components/white-card/white-card";
 import { RequestTitle } from "../../components/request-title/request-title";
-import { RequestControls } from "../request-controls/request-controls";
+import RequestControls from "../request-controls/request-controls";
 import { addParamsToUrl } from "../../utils/add-params-to-url/add-params-to-url";
 import { SpaceBetweenLayout } from "../../components/layouts/space-between-layout/space-between-layout";
 import { Tooltip } from "../../components/tooltip/tooltip";
+import { isNonEmptyFields } from "../../utils/non-emtpy-fields/non-empty-fields";
 
 function RequestItem({ req }) {
   const [isAccess, setIsAccess] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const [url, setUrl] = useState(req.base_url);
   const [queryParams, setQueryParams] = useState({});
@@ -27,9 +29,9 @@ function RequestItem({ req }) {
     };
     req.params.forEach((param) => {
       if (param.defaultValue) {
-        paramTypes[param.inputType][param.name] = param.defaultValue;
+        paramTypes[param.paramGroup][param.name] = param.defaultValue;
       } else {
-        paramTypes[param.inputType][param.name] = null;
+        paramTypes[param.paramGroup][param.name] = null;
       }
     });
 
@@ -52,8 +54,29 @@ function RequestItem({ req }) {
     }, []),
 
     onClear: useCallback(() => {
+      setErrors({})
       setClear((prev) => !prev);
     }, []),
+    
+    addError: useCallback((name) => {
+      setErrors(prev => {
+        return{
+          ...prev,
+          [name]: true
+        }
+      })
+    }, []),
+
+    removeError: useCallback((name) => {
+      const newErrors = {}
+
+      for (const error in errors) {
+          if(error !== name){
+            newErrors[error] = true
+          }
+      }
+      setErrors(newErrors)
+    }, [errors]),
   };
 
   const reqControls = {
@@ -80,6 +103,7 @@ function RequestItem({ req }) {
     }, []),
   };
 
+  const isAnyMistake = useMemo(() => isNonEmptyFields(errors), [errors])
   
   useEffect(() => {
     setUrl(addParamsToUrl(req.base_url, queryParams));
@@ -114,9 +138,12 @@ function RequestItem({ req }) {
           reqControls={reqControls}
           clear={clear}
           isAccess={isAccess}
+          setErrors={callbacks.addError}
+          removeError={callbacks.removeError}
         />
 
         <RequestControls
+          isAnyMistake={isAnyMistake}
           isAccess={isAccess}
           params={params}
           method={req.method}

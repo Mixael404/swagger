@@ -1,6 +1,6 @@
 import "./execute-clear-group.css"
 
-export function ExecuteClearGroup({onExecute, onClear}){
+export function ExecuteClearGroup({onExecute, onClear, isAnyMistake}){
     return(
         <div
               className="btn-group"
@@ -11,6 +11,7 @@ export function ExecuteClearGroup({onExecute, onClear}){
               onClick={onExecute}
               type="button"
               className="btn btn-info"
+              disabled={isAnyMistake}
               >
                 Execute
               </button>
