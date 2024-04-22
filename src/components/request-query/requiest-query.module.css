@@ -1,4 +1,4 @@
-.requiest_query {
+.request_query {
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -6,33 +6,13 @@
     padding: .5rem 0 1rem;
     min-width: 100%;
 }
-.name_container{
-    min-width: 150px;
-}
-.name_container p:last-child{
-    color: gray;
-}
-.description_container{
-    position: relative;
-}
-.name_container p:first-child, .description_container p:first-child{
+
+.description_container p:first-child{
     margin-bottom: .4rem;
     font-size: 16px;
     font-weight: 500;
 }
-.select_wrapper{
-    border-radius: 6px;
-    min-width: 200px;
-    max-width: 300px;
-    display: inline-block;
-}
-.react-select-container{
-    width: 100%;
-}
-span.required{
-    font-size: 22px;
-    font-weight: 500;
-}
+
 .invalid{
     border: 2px solid red !important;
 }
@@ -51,7 +31,7 @@ input:focus{
     align-items: center;
 }
 @media(min-width: 768px){
-    .requiest_query {
+    .request_query {
         flex-direction: row;
         align-items: center;
         gap: 2rem;

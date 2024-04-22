@@ -1,0 +1,6 @@
+.select_wrapper{
+    border-radius: 6px;
+    min-width: 200px;
+    max-width: 300px;
+    display: inline-block;
+}

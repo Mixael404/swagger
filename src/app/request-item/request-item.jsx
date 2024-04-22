@@ -68,15 +68,16 @@ function RequestItem({ req }) {
     }, []),
 
     removeError: useCallback((name) => {
-      const newErrors = {}
-
-      for (const error in errors) {
+      setErrors(prev => {
+        const newErrors = {}
+        for (const error in prev) {
           if(error !== name){
             newErrors[error] = true
           }
       }
-      setErrors(newErrors)
-    }, [errors]),
+      return newErrors
+      })
+    }, []),
   };
 
   const reqControls = {
@@ -138,7 +139,7 @@ function RequestItem({ req }) {
           reqControls={reqControls}
           clear={clear}
           isAccess={isAccess}
-          setErrors={callbacks.addError}
+          addError={callbacks.addError}
           removeError={callbacks.removeError}
         />
 

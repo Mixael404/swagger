@@ -10,8 +10,8 @@ class ValidationService{
      */
 
     isNotEmpty(value){
-        if(!value) return false
-        return value !== ''
+        if(!value) return [false, 'This value can not be empty!']
+        return [value !== '', "This value can not be empty!"]
     }
 
     /**
@@ -20,8 +20,8 @@ class ValidationService{
      * @returns {boolean} Returns true if value contains only numbers. 
      */
     isOnlyNumbers(value, canBeEmpty = false){
-        if(canBeEmpty && value === "") return true
-        return this.number.test(value)
+        if(canBeEmpty && value === "") return [true, '']
+        return [this.number.test(value), "This value can contain only numbers!"]
     }
 }
 
