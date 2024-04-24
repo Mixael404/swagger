@@ -1,4 +1,4 @@
-import { memo, useRef, useState } from "react";
+import { memo, useMemo, useRef, useState } from "react";
 import classes from "./requiest-query.module.css";
 import { validationService } from "../../services/validation.service";
 import { Reset } from "../reset/reset";
@@ -13,13 +13,14 @@ function RequestQuery(props) {
   const action = props.reqControls[props.type];
 
   const validation = (node) => {
-    let value = node.value;
+    const value = node.value;
     let result = true;
     let error;
 
     if (props.inputType === "number") {
       [result, error] = validationService.isOnlyNumbers(value, true);
     }
+    
     if (props.required) {
       [result, error] = validationService.isNotEmpty(value);
     }
@@ -36,13 +37,25 @@ function RequestQuery(props) {
 
   const onReset = () => {
     setReset((prev) => !prev);
-    action(props.name, props.defaultValue);
+    const value = props.defaultValue ?? ""
+    action(props.name, value);
   };
 
   const onFocus = (node) => {
     setError("");
     node.classList.remove(classes.invalid);
   };
+
+  const propsForInputs = useMemo(() => {
+    return {
+        ...props,
+        reset: reset,
+        action: action,
+        onFocus: onFocus,
+        validation: validation,
+        execute: props.execute
+    }
+  }, [props])
 
   return (
     <div className={classes.request_query}>
@@ -51,26 +64,14 @@ function RequestQuery(props) {
       required={props.required}
       inputType={props.inputType}
       />
-      
+
       <div className={classes.description_container}>
         <p> {props.description}</p>
         <div className={classes.input_group}>
           {props.options ? (
-            <SelectWrapper
-              {...props}
-              reset={reset}
-              action={action}
-              onFocus={onFocus}
-              validation={validation}
-            />
+            <SelectWrapper {...propsForInputs}/>
           ) : (
-            <Input
-              {...props}
-              reset={reset}
-              action={action}
-              onFocus={onFocus}
-              validation={validation}
-            />
+            <Input {...propsForInputs}/>
           )}
           {!props.disabled && <Reset onClick={onReset} />}
         </div>

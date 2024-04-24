@@ -11,6 +11,7 @@ function SelectWrapperComponent(props) {
 
   const handleSelect = (e) => {
     selectWrapperRef.current.value = e.value
+    selectRef.current.blur()
     props.action(props.name, e.value)
   }
 
