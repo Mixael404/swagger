@@ -24,6 +24,7 @@ function InputComponent(props) {
 
   return (
     <input
+      className={classes.input}
       required={props.required}
       id={`${props.reqId}-${props.name}`}
       ref={inputRef}
