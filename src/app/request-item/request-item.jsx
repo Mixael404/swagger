@@ -54,7 +54,7 @@ function RequestItem({ req }) {
     }, []),
 
     onClear: useCallback(() => {
-      setErrors({})
+      // setErrors({})
       setClear((prev) => !prev);
     }, []),
     

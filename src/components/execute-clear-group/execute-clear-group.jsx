@@ -1,6 +1,31 @@
+import { useEffect, useState } from "react"
 import "./execute-clear-group.css"
 
 export function ExecuteClearGroup({onExecute, onClear, isAnyMistake}){
+  const [isDisabled, setIsDisabled] = useState(false)
+
+  function execute(){
+    if(isAnyMistake){
+      setIsDisabled(true)
+      onClear()
+    } else{
+      setIsDisabled(false)
+      onExecute()
+    }
+  }
+
+  useEffect(() => {
+    if(isAnyMistake){
+      setIsDisabled(true)
+    } else{
+      setIsDisabled(false)
+    }
+  }, [isAnyMistake])
+
+  useEffect(() =>{
+    setIsDisabled(false)
+  }, [])
+
     return(
         <div
               className="btn-group"
@@ -8,10 +33,10 @@ export function ExecuteClearGroup({onExecute, onClear, isAnyMistake}){
               aria-label="Basic mixed styles example"
             >
               <button
-              onClick={onExecute}
+              onClick={execute}
               type="button"
               className="btn btn-info"
-              disabled={isAnyMistake}
+              disabled={isDisabled}
               >
                 Execute
               </button>

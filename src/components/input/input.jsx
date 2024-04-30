@@ -12,10 +12,15 @@ function InputComponent(props) {
     }
 
     useEffect(() => {
+      inputRef.current.value = props.defaultValue ?? ''
+      props.validation(inputRef.current)
+    }, [props.clear, props.reset])
+
+    useEffect(() => {
         inputRef.current.value = props.defaultValue ?? ''
         props.validation(inputRef.current)
         props.onFocus(inputRef.current)
-    }, [props.clear, props.isAccess, props.reset])
+    }, [props.isAccess])
 
   return (
     <input

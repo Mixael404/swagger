@@ -31,6 +31,8 @@ function RequestQuery(props) {
       props.addError(`${props.reqId}-${props.name}`);
     } else {
       props.removeError(`${props.reqId}-${props.name}`);
+      node.classList.remove(classes.invalid);
+      setError(null);
     }
     return result;
   };
@@ -42,7 +44,7 @@ function RequestQuery(props) {
   };
 
   const onFocus = (node) => {
-    setError("");
+    setError(null);
     node.classList.remove(classes.invalid);
   };
 

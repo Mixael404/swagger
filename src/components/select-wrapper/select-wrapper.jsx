@@ -17,6 +17,17 @@ function SelectWrapperComponent(props) {
 
   useEffect(() => {
     if(defaultSelectedValue){
+      selectRef.current.setValue(defaultSelectedValue)
+      selectWrapperRef.current.value = defaultSelectedValue
+  } else{
+      selectRef.current.setValue({value: '', title: ''})
+      selectWrapperRef.current.value  = ''
+  }
+  props.validation(selectWrapperRef.current)
+  }, [props.clear, props.reset])
+
+  useEffect(() => {
+    if(defaultSelectedValue){
         selectRef.current.setValue(defaultSelectedValue)
         selectWrapperRef.current.value = defaultSelectedValue
     } else{
@@ -25,7 +36,7 @@ function SelectWrapperComponent(props) {
     }
     props.validation(selectWrapperRef.current)
     props.onFocus(selectWrapperRef.current)
-}, [props.clear, props.isAccess, props.reset])
+}, [props.isAccess])
 
   return (
     <div className={classes.select_wrapper} ref={selectWrapperRef}>
