@@ -9,7 +9,6 @@ import { QueryName } from "../query-name/query-name";
 function RequestQuery(props) {
   const [error, setError] = useState(null);
   const [reset, setReset] = useState(false);
-
   const action = props.reqControls[props.type];
 
   const validation = (node) => {

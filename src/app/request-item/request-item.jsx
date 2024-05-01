@@ -1,51 +1,18 @@
-import { memo, useCallback, useEffect, useMemo, useState } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import CollapseCard from "../../components/collapse-card/collapse-card";
 import { ParamsControlBtn } from "../../components/params-control-btn/params-control-btn";
 import { QueriesBlock } from "../../components/queries-block/queries-block";
 import { WhiteCard } from "../../components/white-card/white-card";
 import { RequestTitle } from "../../components/request-title/request-title";
 import RequestControls from "../request-controls/request-controls";
-import { addParamsToUrl } from "../../utils/add-params-to-url/add-params-to-url";
 import { SpaceBetweenLayout } from "../../components/layouts/space-between-layout/space-between-layout";
 import { Tooltip } from "../../components/tooltip/tooltip";
-import { isNonEmptyFields } from "../../utils/non-emtpy-fields/non-empty-fields";
 
-function RequestItem({ req }) {
+function RequestItem({ req, params, setDefaultParams, reqControls }) {
   const [isAccess, setIsAccess] = useState(false);
-  const [errors, setErrors] = useState({});
-
-  const [url, setUrl] = useState(req.base_url);
-  const [queryParams, setQueryParams] = useState({});
-  const [headers, setHeaders] = useState({});
-  const [body, setBody] = useState({});
-
+  const [errors, setErrors] = useState([]);
   const [clear, setClear] = useState(false);
-
-  const setDefaultParams = useCallback(function () {
-    const paramTypes = {
-      header: {},
-      query: {},
-      body: {},
-    };
-    req.params.forEach((param) => {
-      if (param.defaultValue) {
-        paramTypes[param.paramGroup][param.name] = param.defaultValue;
-      } else {
-        paramTypes[param.paramGroup][param.name] = null;
-      }
-    });
-
-    const { header, query, body } = paramTypes;
-
-    setHeaders(header);
-    setQueryParams(query);
-    setBody(body);
-  }, []);
-
-  const params = useMemo(() => {
-    return { url, queryParams, headers, body };
-  }, [url, headers, body]);
-
+  
   const callbacks = {
     changeAccess: useCallback(() => {
       setIsAccess((prev) => !prev);
@@ -54,65 +21,29 @@ function RequestItem({ req }) {
     }, []),
 
     onClear: useCallback(() => {
-      // setErrors({})
       setClear((prev) => !prev);
+      setErrors([])
+      setDefaultParams()
     }, []),
     
     addError: useCallback((name) => {
       setErrors(prev => {
-        return{
-          ...prev,
-          [name]: true
+        if(prev.includes(name)){
+          return [...prev]
         }
+        return [...prev, name]
       })
     }, []),
 
     removeError: useCallback((name) => {
       setErrors(prev => {
-        const newErrors = {}
-        for (const error in prev) {
-          if(error !== name){
-            newErrors[error] = true
-          }
-      }
-      return newErrors
+        const newErrors = prev.filter(error => error !== name)
+        return newErrors
       })
     }, []),
   };
 
-  const reqControls = {
-    changeUrl: useCallback((key, value) => {
-      setUrl(req.base_url + `/${value}`);
-    }, []),
-
-    changeQuery: useCallback((key, value) => {
-      setQueryParams((prev) => {
-        return { ...prev, [key]: value };
-      });
-    }, []),
-
-    changeHeader: useCallback((key, value) => {
-      setHeaders((prev) => {
-        return { ...prev, [key]: value };
-      });
-    }, []),
-
-    changeBody: useCallback((key, value) => {
-      setBody((prev) => {
-        return { ...prev, [key]: value };
-      });
-    }, []),
-  };
-
-  const isAnyMistake = useMemo(() => isNonEmptyFields(errors), [errors])
-  
-  useEffect(() => {
-    setUrl(addParamsToUrl(req.base_url, queryParams));
-  }, [queryParams]);
-
-  useEffect(() => {
-    setDefaultParams();
-  }, [clear]);
+  const isAnyMistake = useMemo(() => errors.length === 0 ? false : true, [errors])
 
   return (
     <div style={{ width: "95%" }}>

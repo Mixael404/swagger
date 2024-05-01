@@ -2,6 +2,7 @@ import { memo, useContext } from "react";
 import RequestItem from "../request-item/request-item";
 import RequestsLayout from "../../components/layouts/requiests-layout/requiests-layout";
 import { serviceContext } from "../../context/service-context";
+import RequestData from "../request-data/request-data";
 
 function RequestsList() {
   const {selectedService} = useContext(serviceContext)
@@ -12,7 +13,8 @@ function RequestsList() {
     <RequestsLayout>
 
       {requestsExist && requests.map((req) => (
-        <RequestItem key={req.id} req={req} />
+        
+        <RequestData key={req.id} req={req} />
       ))}
 
       <div style={{textTransform: "uppercase", fontWeight: 'bold'}}>Service: {selectedService.title}</div>
