@@ -14,7 +14,7 @@ function Header() {
 
   const onSelect = (e) => {
     const selected = servicesList[e.target.value]
-    navigate(`${BASE_URL}?service=${selected.title}`)
+    navigate(`?service=${selected.title}`)
   };
 
   return (

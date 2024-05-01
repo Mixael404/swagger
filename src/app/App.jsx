@@ -7,10 +7,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 export function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/swagger'>
       <ServiceContextProvider>
         <Routes>
-          <Route path='/swagger' element={
+          <Route path='/' element={
             <Layout>
               <Header />
               <RequestsList />
