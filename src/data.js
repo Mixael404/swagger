@@ -247,7 +247,96 @@ export const data = {
       },
     ],
   },
+  cat_api: {
+    title: 'cat_api',
+    requests: [
+      {
+        id: 15,
+        base_url: 'https://api.thecatapi.com/v1/images/search',
+        title: "Get image about cats",
+        method: 'GET',
+        tooltipContent: "Get link on photo of cats. Without query params you will receive information about one random cat",
+        params: [
+          {
+            name: 'limit',
+            paramGroup: "query",
+            description: "Number of images to return",
+            type: "changeQuery",
+            disabled: false,
+            inputType: "number",
+            minValue: 1,
+            maxValue: 100,
+          },
+          {
+            name: 'page',
+            paramGroup: "query",
+            description: "The page number to use when Paginating through the images",
+            type: "changeQuery",
+            disabled: false,
+            inputType: "number",
+            minValue: 0,
+          },
+          {
+            name: "order",
+            paramGroup: "query",
+            description: "The Order to return the images in by their upload date.",
+            type: "changeQuery",
+            defaultValue: "",
+            disabled: false,
+            options: [
+              { value: "ASC", label: "ASC" },
+              { value: "DESC", label: "DESC" },
+              { value: "RAND", label: "RAND" },
+            ],
+            inputType: "select"
+          },
+          {
+            name: "breed_ids",
+            paramGroup: "query",
+            description: "Ids of breeds through coma",
+            type: "changeQuery",
+            defaultValue: "",
+            disabled: false,
+            inputType: "string"
+          },
+          {
+            name: "category_ids",
+            paramGroup: "query",
+            description: "Ids of categories through coma",
+            type: "changeQuery",
+            defaultValue: "",
+            disabled: false,
+            inputType: "sequence of numbers",
+            minValue: 1,
+          },
+
+          {
+            name: "x-api-key",
+            paramGroup: "header",
+            description: "Auth key to API",
+            type: "changeHeader",
+            defaultValue: "live_RcJxzXotjLxyxCOVNYTpkVIs3CGxPL6wmv2KmIo8M9Qmc3pDANIAnW3jJKLsgIkG",
+            disabled: true,
+          },
+        ]
+      },
+    ]
+  }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
                         Сначала собираю все эндпоинты, собираю их в блок с радио кнопкой. Если не выбран - показываю этот массив. Если выбран скрываю предыдущий массив. Вместо него блок этого эндпоинта. Если нужно задать значение - инпут ввода, если не надо - без него. И также массив эндпоинтов уже выбранного эндпоинта. 

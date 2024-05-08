@@ -1,7 +1,6 @@
 import axios from "axios"
 
 export class APIService{
-
     /**
      * 
      * @param {string} url 
@@ -23,16 +22,6 @@ export class APIService{
         } catch(error){
             return error.message
         }
-        // const params = {
-        //     method: method,
-        //     headers: {...headers},
-        // }
-        // if(method !== "GET"){
-        //     params.body = JSON.stringify(body)
-        // }
-        // const response = await fetch(url, params)
-        // const data = await response.text()
-        // return data;
     }
 }
 

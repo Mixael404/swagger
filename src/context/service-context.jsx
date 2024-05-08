@@ -1,18 +1,20 @@
 import { createContext, useEffect, useReducer } from "react";
 import { reducer } from "./service-reducer";
 import { data } from "../data";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const serviceContext = createContext()
 const initialValue = {
-    selectedService: data['jsonplaceholder'],
+    selectedService: {},
     servicesList: {}
 }
 
 export function ServiceContextProvider({ children }) {
     const [value, dispatch] = useReducer(reducer, initialValue)
 
+    const navigate = useNavigate()
     const location = useLocation()
+
     value.setServices = (services) => {
         dispatch({ type: "SET_SERVICES_LIST", payload: services })
     }
@@ -29,18 +31,24 @@ export function ServiceContextProvider({ children }) {
 
     useEffect(() => {
         let selected
-        const queryParams = location.search.slice(1).split('&')
-
-        for (const pair of queryParams) {
-            const [key, page] = pair.split('=')
-            if (key === 'service' && data[page.toLowerCase()]) {
-                selected = page.toLowerCase()
+        if(!location.search) {
+            selected = 'jsonplaceholder'
+        } else{
+            const queryParams = location.search.slice(1).split('&')
+            for (const pair of queryParams) {
+                const [key, page] = pair.split('=')
+                if (key === 'service' && data[page.toLowerCase()]) {
+                    selected = page.toLowerCase()
+                }
             }
         }
-
-        if (!selected) selected = 'jsonplaceholder'
         
-        dispatch({ type: 'SELECT_SERVICE', payload: data[selected] })
+        if (!selected) {
+            navigate('/not-found')
+        } else{
+            dispatch({ type: 'SELECT_SERVICE', payload: data[selected] })
+        }
+        
     }, [location])
 
     return (

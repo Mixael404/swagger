@@ -1,18 +1,17 @@
-import { memo, useRef, useEffect } from "react";
+import { memo, useRef, useEffect, useState } from "react";
 import classes from "./select-wrapper.module.css";
 import Select from 'react-select'
 
 function SelectWrapperComponent(props) {
   const selectWrapperRef = useRef(null)
   const selectRef = useRef(null)
-
   const optionsExist = props.options && props.options.length
   const defaultSelectedValue = optionsExist && props.options.find(option => option.value === props.defaultValue)
 
   const handleSelect = (e) => {
     selectWrapperRef.current.value = e.value
-    selectRef.current.blur()
     props.action(props.name, e.value)
+    selectRef.current.blur()
   }
 
   useEffect(() => {
@@ -41,6 +40,7 @@ function SelectWrapperComponent(props) {
   return (
     <div className={classes.select_wrapper} ref={selectWrapperRef}>
       <Select
+        isSearchable={true}
         onFocus={() => props.onFocus(selectWrapperRef.current)}
         onBlur={() => props.validation(selectWrapperRef.current)}
         options={props.options}

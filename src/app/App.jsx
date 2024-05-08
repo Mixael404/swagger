@@ -16,6 +16,7 @@ export function App() {
               <RequestsList />
             </Layout>
           } />
+          <Route path='/not-found' element={<p>Not found</p>} />
         </Routes>
       </ServiceContextProvider>
     </BrowserRouter>

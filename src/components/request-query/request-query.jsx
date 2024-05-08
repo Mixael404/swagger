@@ -13,16 +13,24 @@ function RequestQuery(props) {
 
   const validation = (node) => {
     const value = node.value;
-    let result = true;
-    let error;
+    const validationFunctions = []
+
+    if (props.required) {
+      validationFunctions.push(() => validationService.isNotEmpty(value))
+    }
 
     if (props.inputType === "number") {
-      [result, error] = validationService.isOnlyNumbers(value, true);
+      validationFunctions.push(() => validationService.isOnlyNumbers(value, true))
+      if(props.maxValue !== undefined || props.minValue !== undefined){
+        validationFunctions.push(() => validationService.isInRange(value, props.maxValue, props.minValue))
+      }
     }
-    
-    if (props.required) {
-      [result, error] = validationService.isNotEmpty(value);
+
+    if (props.inputType === "sequence of numbers") {
+      validationFunctions.push(() => validationService.isSequenceOfValidNumbers(value, props.maxValue, props.minValue))
     }
+
+    const [result, error] = validationService.validation(value, validationFunctions)
 
     if (!result) {
       node.classList.add(classes.invalid);
