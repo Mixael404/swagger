@@ -320,6 +320,53 @@ export const data = {
           },
         ]
       },
+      {
+        id: 16,
+        base_url: 'https://api.thecatapi.com/v1/votes',
+        title: "Add your vote to any image",
+        method: 'POST',
+        tooltipContent: "You can add vote-up or vote-down for any image by id",
+        params: [
+          {
+            name: "image_id",
+            paramGroup: 'body',
+            description: "Id of image (quotes required)",
+            type: "changeBody",
+            required: true,
+            disabled: false,
+            inputType: "string",
+          },
+          {
+            name: "sub_id",
+            paramGroup: 'body',
+            description: "Optional unique id of your user (quotes required)",
+            type: "changeBody",
+            required: false,
+            disabled: false,
+            inputType: "string",
+          },
+          {
+            name: "value",
+            paramGroup: 'body',
+            description: "Type of your reaction",
+            type: "changeBody",
+            required: true,
+            disabled: false,
+            options: [
+              { value: "1", label: "Like" },
+              { value: "-1", label: "Dislike" },
+            ]
+          },
+          {
+            name: "x-api-key",
+            paramGroup: "header",
+            description: "Auth key to API",
+            type: "changeHeader",
+            defaultValue: "live_RcJxzXotjLxyxCOVNYTpkVIs3CGxPL6wmv2KmIo8M9Qmc3pDANIAnW3jJKLsgIkG",
+            disabled: true,
+          },
+        ]
+      }
     ]
   }
 };
