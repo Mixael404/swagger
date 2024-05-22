@@ -5,7 +5,7 @@ import { getColor } from "../../utils/get-color/get-color";
 function CollapseCard({id, title, method, children}) {
 
   const buttonRef = useRef(null)
-  const color = getColor(method)
+  const color = method ? getColor(method) : 'grey'
   useEffect(() => {
     buttonRef.current.classList.add("collapsed")
   }, [id])
@@ -22,13 +22,13 @@ function CollapseCard({id, title, method, children}) {
           ref={buttonRef}
         >
           <div className="method">
-              {method}
+              {method || ""}
           </div>
           {title}
         </button>
       </p>
       <div className={`collapse`} id={`collapse${id}`}>
-        <div className={`card card-body ${color}`}>
+        <div className={method ? `card card-body ${color}` : `card card-body empty-bg`}>
           {children}
         </div>
       </div>

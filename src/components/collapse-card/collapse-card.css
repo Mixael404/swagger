@@ -99,3 +99,9 @@ p{
     border: none;
     border-bottom: 1px solid rgba(220, 143, 0, 0.3);
 }
+
+.empty-bg{
+    background-color: rgba(154, 154, 154, 0.3);
+    border: none;
+    border-bottom: 1px solid rgba(154, 154, 154, 0.3);
+}

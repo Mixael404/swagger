@@ -2,7 +2,7 @@ import { memo, useContext } from "react";
 import { serviceContext } from "../../context/service-context";
 import { SpaceBetweenLayout } from "../../components/layouts/space-between-layout/space-between-layout";
 import { CustomSelect } from "../../components/custom-select/custom-select";
-import { LinkLikeButton } from "../../components/link-like-button/link-like-button";
+import { LinkLikeButton } from "../../components/ui/link-like-button/link-like-button";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../config/constants/url.constant";
 function Header() {
@@ -12,8 +12,8 @@ function Header() {
 
   const navigate = useNavigate()
 
-  const onSelect = (e) => {
-    const selected = servicesList[e.target.value]
+  const onSelect = (serviceName) => {
+    const selected = servicesList[serviceName]
     navigate(`?service=${selected.title}`)
   };
 
@@ -26,7 +26,7 @@ function Header() {
       options={options}
       />
       
-      <LinkLikeButton url={"https://github.com/Mixael404/swagger"} isBlank={true} />
+      <LinkLikeButton url={"/add-service"} isLinkToOuterService={false} text={"Add new service"} />
     </SpaceBetweenLayout>
   );
 }

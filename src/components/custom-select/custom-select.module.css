@@ -8,6 +8,12 @@
     color: rgb(150, 53, 242);
 }
 
+.label{
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
 .option{
     color: black;
 }

@@ -2,7 +2,7 @@ import { memo, useMemo, useRef, useState } from "react";
 import classes from "./requiest-query.module.css";
 import { validationService } from "../../services/validation.service";
 import { Reset } from "../reset/reset";
-import { Input } from "../input/input";
+import { Input } from "../query-input/query-input";
 import { SelectWrapper } from "../select-wrapper/select-wrapper";
 import { QueryName } from "../query-name/query-name";
 

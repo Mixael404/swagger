@@ -1,5 +1,5 @@
 import { memo, useRef, useEffect } from "react";
-import classes from "./input.module.css";
+import classes from "./query-input.module.css";
 
 function InputComponent(props) {
     const inputRef = useRef(null)
