@@ -1,0 +1,13 @@
+.add_parameter {
+    padding: 10px 0 0;
+    border-bottom: 2px solid black;
+    position: relative;
+}
+
+.parameter_title{
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+.optionAddWrapper{
+    position: relative;
+}

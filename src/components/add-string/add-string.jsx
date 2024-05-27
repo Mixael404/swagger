@@ -1,11 +1,17 @@
 import { memo } from "react"
 import classes from "./add-string.module.css"
 
-function AddStringComponent({onClick}){
-    return(
-        <p 
-        onClick={onClick}
-        className={classes.add_string}>Add request</p>
+function AddStringComponent({ text, onClick, align }) {
+    return (
+        <div className={classes.wrapper}>
+            <button
+            type="button"
+                onClick={onClick}
+                className={align === "center" ? `${classes.add_string} ${classes.center}` : `${classes.add_string} ${classes.start}`}
+            >
+                {text}
+            </button>
+        </div>
     )
 }
 

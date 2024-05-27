@@ -1,0 +1,28 @@
+.custom_checkbox {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    background-color: #fff;
+    border-radius: 50%;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.checkbox{
+    /* opacity: 0; */
+    display: none;
+}
+
+input:checked+.custom_checkbox{
+    background-color: greenyellow;
+}
+
+.wrapper{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+label{
+    margin: 0;
+}

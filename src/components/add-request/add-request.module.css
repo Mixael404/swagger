@@ -1,3 +1,15 @@
 .add_request {
     margin-bottom: 10px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.params_group{
+    border-top: 2px solid black;
+    width: 80%;
+}
+.params__title{
+    font-size: 18px;
+    padding: 6px 0;
+    margin-top: 20px;
 }

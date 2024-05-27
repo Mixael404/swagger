@@ -21,7 +21,7 @@ function Header() {
     <SpaceBetweenLayout>
 
       <CustomSelect
-      onSelect={onSelect}
+      changeState={onSelect}
       selectedService={selectedService.title}
       options={options}
       />

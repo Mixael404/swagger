@@ -1,13 +1,17 @@
-import { memo } from "react";
+import { forwardRef, memo } from "react";
 import classes from "./custom-select.module.css";
 
-function CustomSelectComponent({ onSelect, selectedService, options, label }) {
+function CustomSelectComponent({ changeState = () => {}, options, label, onChange = Function.prototype, onBlur, value, error }, ref) {
   return (
-    <>
+    <div className={classes.wrapper}>
       <select
       className={classes.select} 
-      onChange={(e) => onSelect(e.target.value)} 
-      value={selectedService}
+      onChange={(e) => {
+        onChange(e)
+        changeState(e.target.value)
+      }} 
+      value={value}
+      onBlur={onBlur}
       >
         {options.map((service) => (
           <option className={classes.option} key={service} value={service}>
@@ -16,10 +20,11 @@ function CustomSelectComponent({ onSelect, selectedService, options, label }) {
         ))}
       </select>
       <p className={classes.label}>{label}</p>
-    </>
+      <span className={classes.error}>{error}</span>
+    </div>
   );
 }
 
-export const CustomSelect = memo(CustomSelectComponent);
+export const CustomSelect = memo(forwardRef(CustomSelectComponent));
 
 
