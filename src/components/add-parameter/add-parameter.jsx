@@ -6,6 +6,9 @@ import { CustomSelect } from "../custom-select/custom-select"
 import { CustomCheckbox } from "../ui/custom-checkbox/custom-checkbox"
 import { DeleteCross } from "../ui/delete-cross/delete-cross"
 import { AddString } from "../add-string/add-string"
+import { addNewFormField } from "../../utils/add-new-form-field/add-new-form-field"
+import { removeFormField } from "../../utils/remove-form-field.js/remove-form-field"
+import { paramTypes, inputTypes } from "../../options/options"
 
 function AddParameterComponent({ parentRequestId, id, onDelete }) {
 
@@ -16,37 +19,21 @@ function AddParameterComponent({ parentRequestId, id, onDelete }) {
     const { control, unregister, watch, trigger } = useFormContext()
 
     const watchDisabledValue = watch(`${parentRequestId}.params.param${id}.isDisabled`)
-    const paramGroups = [
-        "",
-        "query",
-        "header",
-        "body"
-    ]
-
-    const inputTypes = [
-        "",
-        "string",
-        "number",
-        "sequence of numbers",
-        "select",
-    ]
 
     const callbacks = {
         addOption: useCallback(() => {
-            const nextId = options.length ? options[options.length - 1] + 1 : 1
-            setOptions(prev => [...prev, nextId])
+            addNewFormField(options, setOptions)
         }, [options]),
 
         removeOption: useCallback((optionId) => {
-            const newOptions = options.filter((id) => optionId !== id)
-            unregister(`${parentRequestId}.params.param${id}.options.option${optionId}`)
-            setOptions(newOptions)
+            removeFormField(optionId,`${parentRequestId}.params.param${id}.options.option${optionId}`, options, setOptions, unregister)
         }, [options])
     }
 
     useEffect(() => {
         trigger(`${parentRequestId}.params.param${id}.defaultValue`)
     }, [watchDisabledValue])
+
     return (
         <div className={classes.add_parameter}>
             <div className={classes.parameter_heading}>
@@ -68,7 +55,7 @@ function AddParameterComponent({ parentRequestId, id, onDelete }) {
                 defaultValue={""}
                 rules={{ required: "This value can not be empty!" }}
                 render={({ field, fieldState: { error } }) => (
-                    <CustomSelect options={paramGroups} label={"Type of parameter"} error={error?.message} {...field} />
+                    <CustomSelect options={paramTypes} label={"Type of parameter"} error={error?.message} {...field} />
                 )}
             />
             <Controller

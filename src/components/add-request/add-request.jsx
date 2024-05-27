@@ -7,6 +7,9 @@ import { Controller, useFormContext } from "react-hook-form"
 import { DeleteCross } from "../ui/delete-cross/delete-cross"
 import { AddString } from "../add-string/add-string"
 import { AddParameter } from "../add-parameter/add-parameter"
+import { addNewFormField } from "../../utils/add-new-form-field/add-new-form-field"
+import { removeFormField } from "../../utils/remove-form-field.js/remove-form-field"
+import { methods } from "../../options/options"
 
 function AddRequestComponent({ id, onRemove }) {
     const [title, setTitle] = useState("")
@@ -23,24 +26,14 @@ function AddRequestComponent({ id, onRemove }) {
         }, []),
 
         addParam: useCallback(() => {
-            const nextId = params.length ? params[params.length - 1] + 1 : 1
-            setParams(prev => [...prev, nextId])
+            addNewFormField(params, setParams)
         }, [params]),
 
         deleteParam: useCallback((paramId) => {
-            const newParams = params.filter(id => paramId !== id)
-            unregister(`${id}.params.param${paramId}`)
-            setParams(newParams)
+            removeFormField(paramId,`${id}.params.param${paramId}`,params, setParams, unregister)
         }, [params])
     }
 
-    const methods = [
-        '',
-        "GET",
-        "POST",
-        "PUT",
-        "DELETE"
-    ]
 
     return (
         <div className={classes.add_request}>

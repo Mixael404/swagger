@@ -7,6 +7,8 @@ import { BackArrow } from "../../components/back-arrow/back-arrow"
 import { AddRequest } from "../../components/add-request/add-request"
 import { AddString } from "../../components/add-string/add-string"
 import { Controller, useForm, FormProvider } from "react-hook-form"
+import { addNewFormField } from "../../utils/add-new-form-field/add-new-form-field"
+import { removeFormField } from "../../utils/remove-form-field.js/remove-form-field"
 
 function AddServiceComponent() {
     const [requests, setRequests] = useState([])
@@ -25,15 +27,11 @@ function AddServiceComponent() {
 
     const callbacks = {
         addService: useCallback(() => {
-            const id = requests.length ? requests[requests.length - 1] + 1 : 1
-            const newRequests = [...requests, id]
-            setRequests(newRequests)
+            addNewFormField(requests, setRequests)
         }, [requests]),
         
         onRemove: useCallback((removedId) => {
-            const newRequests = requests.filter(id => id !== removedId)
-            methods.unregister(removedId)
-            setRequests(newRequests);
+            removeFormField(removedId, removedId, requests, setRequests, methods.unregister)
         }, [requests])
     }
 
