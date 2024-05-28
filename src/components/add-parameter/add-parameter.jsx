@@ -9,6 +9,7 @@ import { AddString } from "../add-string/add-string"
 import { addNewFormField } from "../../utils/add-new-form-field/add-new-form-field"
 import { removeFormField } from "../../utils/remove-form-field.js/remove-form-field"
 import { paramTypes, inputTypes } from "../../options/options"
+import { MinMaxNumberInputs } from "../min-max-number-inputs/min-max-number-inputs"
 
 function AddParameterComponent({ parentRequestId, id, onDelete }) {
 
@@ -104,39 +105,7 @@ function AddParameterComponent({ parentRequestId, id, onDelete }) {
                 )}
             />
             {
-                inputType === "number" &&
-                <>
-                    <Controller
-                        name={`${parentRequestId}.params.param${id}.maxValue`}
-                        control={control}
-                        defaultValue={''}
-                        rules={{
-                            required: false,
-                            pattern: {
-                                value: /^\d+$/,
-                                message: "Please enter some number!"
-                            }
-                        }}
-                        render={({ field, fieldState: { error } }) => (
-                            <Input label={"Maximum possible value"} error={error?.message} {...field} />
-                        )}
-                    />
-                    <Controller
-                        name={`${parentRequestId}.params.param${id}.minValue`}
-                        control={control}
-                        defaultValue={''}
-                        rules={{
-                            required: false,
-                            pattern: {
-                                value: /^\d+$/,
-                                message: "Please enter some number!"
-                            }
-                        }}
-                        render={({ field, fieldState: { error } }) => (
-                            <Input label={"Minimum possible value"}  error={error?.message} {...field} />
-                        )}
-                    />
-                </>
+                inputType === "number" && <MinMaxNumberInputs parentRequestId={parentRequestId} paramId={id}/>
             }
             {
                 inputType === "select" &&
