@@ -5,11 +5,11 @@ import { Input } from "../ui/input/input"
 import { CustomSelect } from "../custom-select/custom-select"
 import { CustomCheckbox } from "../ui/custom-checkbox/custom-checkbox"
 import { DeleteCross } from "../ui/delete-cross/delete-cross"
-import { AddString } from "../add-string/add-string"
 import { addNewFormField } from "../../utils/add-new-form-field/add-new-form-field"
 import { removeFormField } from "../../utils/remove-form-field.js/remove-form-field"
 import { paramTypes, inputTypes } from "../../options/options"
 import { MinMaxNumberInputs } from "../min-max-number-inputs/min-max-number-inputs"
+import { OptionsSelectInputs } from "../options-select-inputs/options-select-inputs"
 
 function AddParameterComponent({ parentRequestId, id, onDelete }) {
 
@@ -24,11 +24,11 @@ function AddParameterComponent({ parentRequestId, id, onDelete }) {
     const callbacks = {
         addOption: useCallback(() => {
             addNewFormField(options, setOptions)
-        }, [options]),
+        }, [options, setOptions]),
 
         removeOption: useCallback((optionId) => {
             removeFormField(optionId,`${parentRequestId}.params.param${id}.options.option${optionId}`, options, setOptions, unregister)
-        }, [options])
+        }, [options, setOptions])
     }
 
     useEffect(() => {
@@ -108,27 +108,13 @@ function AddParameterComponent({ parentRequestId, id, onDelete }) {
                 inputType === "number" && <MinMaxNumberInputs parentRequestId={parentRequestId} paramId={id}/>
             }
             {
-                inputType === "select" &&
-                <>
-                    {
-                        options.map((optionId, index) => (
-                            <div className={classes.optionAddWrapper} style={{width: "80%"}} key={optionId}>
-                                <Controller
-                                    name={`${parentRequestId}.params.param${id}.options.option${optionId}`}
-                                    control={control}
-                                    defaultValue={""}
-                                    rules={{ required: "This value can not be empty!" }}
-                                    render={({ field, fieldState: { error } }) => (
-                                        <Input label={`Option №${index + 1}`} error={error?.message} {...field} />
-                                    )}
-                                />
-                                <DeleteCross onClick={callbacks.removeOption} id={optionId} />
-                            </div>
-                        ))
-                    }
-
-                    <AddString text="Add option" onClick={callbacks.addOption} />
-                </>
+                inputType === "select" && <OptionsSelectInputs 
+                options={options}
+                parentRequestId={parentRequestId} 
+                paramId={id}
+                addOption={callbacks.addOption}
+                removeOption={callbacks.removeOption}
+                />
             }
         </div>
     )

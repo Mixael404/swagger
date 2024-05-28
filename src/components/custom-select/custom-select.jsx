@@ -1,7 +1,12 @@
 import { forwardRef, memo } from "react";
 import classes from "./custom-select.module.css";
 
-function CustomSelectComponent({ changeState = () => {}, options, label, onChange = Function.prototype, onBlur, value, error }, ref) {
+function CustomSelectComponent({ selectedService, changeState = () => {}, options, label, onChange = Function.prototype, onBlur, value, error }, ref) {
+
+  if(selectedService){
+    value = selectedService
+  }
+  
   return (
     <div className={classes.wrapper}>
       <select
