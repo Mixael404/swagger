@@ -41,13 +41,6 @@ export function ServiceContextProvider({ children }) {
         if(!location.search) {
             selected = 'jsonplaceholder'
         } else{
-            // console.log(new URLSearchParams(location.search).get("service")); 
-
-            // for (const key of new URLSearchParams(location.search).keys()) {
-            //     console.log(key);
-            // }
-
-
             const queryParams = location.search.slice(1).split('&')
             for (const pair of queryParams) {
                 const [key, page] = pair.split('=')

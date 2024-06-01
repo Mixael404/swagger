@@ -26,11 +26,11 @@ function AddServiceComponent() {
     }
 
     const callbacks = {
-        addService: useCallback(() => {
+        addRequest: useCallback(() => {
             addNewFormField(requests, setRequests)
         }, [requests]),
         
-        onRemove: useCallback((removedId) => {
+        removeRequest: useCallback((removedId) => {
             removeFormField(removedId, removedId, requests, setRequests, methods.unregister)
         }, [requests])
     }
@@ -52,9 +52,9 @@ function AddServiceComponent() {
                             )}
                         />
                         {
-                            requests.map(item => <AddRequest key={item} id={item} onRemove={callbacks.onRemove}/>)
+                            requests.map(item => <AddRequest key={item} id={item} onRemove={callbacks.removeRequest}/>)
                         }
-                        <AddString onClick={callbacks.addService} text={'Add request'} align={"center"}/>
+                        <AddString onClick={callbacks.addRequest} text={'Add request'} align={"center"}/>
                         <input type="submit" />
                     </form>
                 </FormProvider>

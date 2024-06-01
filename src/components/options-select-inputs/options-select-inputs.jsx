@@ -19,14 +19,15 @@ function OptionsSelectInputsComponent({ options ,parentRequestId, paramId, addOp
                             defaultValue={""}
                             rules={{ required: "This value can not be empty!" }}
                             render={({ field, fieldState: { error } }) => (
-                                <Input label={`Option №${index + 1}`} error={error?.message} {...field} />
+                                <div className={classes.option_wrapper}>
+                                    <Input label={`Option №${index + 1}`} error={error?.message} {...field} />
+                                    <DeleteCross onClick={removeOption} id={optionId} />
+                                </div>
                             )}
                         />
-                        <DeleteCross onClick={removeOption} id={optionId} />
                     </div>
                 ))
             }
-
             <AddString text="Add option" onClick={addOption} />
         </>
     )

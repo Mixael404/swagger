@@ -47,7 +47,7 @@ function AddRequestComponent({ id, onRemove }) {
                     name={`${id}.title`}
                     control={control}
                     defaultValue={""}
-                    rules={{ required: "This value can not be empty!" }}
+                    rules={{ required: "This value can not be empty!", minLength: { value: 3, message: "Minimum length is 3 characters"}}}
                     render={({ field, fieldState: { error } }) => (
                         <Input label={"Title"} {...field} changeState={callbacks.addTitle} error={error?.message} />
                     )}

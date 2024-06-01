@@ -63,6 +63,7 @@ export const data = {
             type: "changeBody",
             disabled: false,
             inputType: "string",
+            required: true,
           },
           {
             name: "body",
@@ -71,6 +72,7 @@ export const data = {
             type: "changeBody",
             disabled: false,
             inputType: "string",
+            required: true,
           },
           {
             name: "userId",
